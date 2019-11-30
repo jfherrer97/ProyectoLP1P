@@ -10,66 +10,102 @@ import re
 import os
 import codecs
 
-reservadas = ['INPUT', 'PRINT', 'BREAK', 'DO', 'WHILE', 'IF', 'ELSE', 'FOR', 'IN', 'RETURN', 'TRUE', 'FALSE']
+reservadas = ['INPUT', 'PRINT', 'BREAK','ISALPHA','APPEND', 'DO', 'WHILE', 'IF', 'ELSE','ELSEIF', 'FOR', 'IN', 'RETURN', 'TRUE', 'FALSE']
 
-tokens = ['NAME', 'PRODUCTO', 'NUMBER', 'EQUALS', 'LPAR', 'RPAR', 'COMILLA', 'COMA'] + list(reservadas.values())
+tokens = ['ID', 'VAR', 'PLUS','DOT' ,'MINUS', 'STRING', 'COMMENT', 'TIMES', 'DIVIDE', 'NUMBER', 'PLUSPLUS', 'SEMICOLON',
+          'EQUALS', 'PRODUCTO', 'EQUAL' 'NUMBER', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET',
+          'COMILLA', 'COMMA', 'LT', 'GT', 'LTE', 'GTE', 'EQUALV', 'NOTEQUALV'] + reservadas
 
-t_ignore = ' \t'
-t_NAME = r'[a-zA-Z_ ][a-zA-Z0-9_: ]*'
+t_PLUS = r'\+'
+t_MINUS = r'-'
+t_TIMES = r'\*'
+t_PLUSPLUS = r'\+\+'
+t_INPUT = r'input'
+t_FOR = r'for'
+t_DOT = r'\.'
+t_DIVIDE = r'/'
+t_EQUALS = r'='
+t_SEMICOLON = r';'
+# t_NAME = r'[a-zA-Z_ ][a-zA-Z0-9_: ]*'
 t_PRODUCTO = r'[A-Z][a-zA-Z0-9 ]*'
-t_COMA = r','
+t_COMMA = r','
 t_COMILLA = r'\"'
-t_NUMBER = r'[0-9]+'
-t_EQUALS = '='
-t_EQUAL = r'=='
-t_NOTEQUAL = r'!='
-t_MAYOR = r'>'
-t_MENOR = r'<'
-t_LPAR = r'\('
-t_RPAR = r'\)'
+t_LBRACE = r'{'
+t_RBRACE = r'}'
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+t_LBRACKET = r'\['
+t_RBRACKET = r'\]'
+t_LT = r'<'
+t_GT = r'>'
+t_LTE = r'<='
+t_GTE = r'>='
+t_EQUALV = r'=='
+t_NOTEQUALV = r'!='
+t_STRING = r'\"[a-zA-Z0-9]+\"'
 
 
-def t_INPUT(t):
-    r'input'
-    t.type = reservadas.get(t.value, 'input')
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    if t.value.upper() in reservadas:
+        t.value = t.value.upper()
+        # reservadas.get(t.value,'ID')
+        t.type = t.value
     return t
 
-def t_PRINT(t):
-    r'print'
-    t.type = reservadas.get(t.value, 'print')
-    return t
 
 def t_TRUE(t):
     r'True'
     t.type = reservadas.get(t.value, 'True')
     return t
 
+
 def t_FALSE(t):
     r'False'
     t.type = reservadas.get(t.value, 'False')
     return t
 
+
 def t_newline(t):
     r'\n+'
-    t.lexer.lineno += t.value.count("\n")
+    print("Newline found")
+    t.lexer.lineno += len(t.value)
+
+
+t_ignore = ' \t'
+
+
+def t_single_line_comment(t):
+    r'^//.*'
+    pass
+
+
+def t_NUMBER(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
+
+
+def t_COMMENT(t):
+    r'\#.*'
+    pass
+    # No return value. Token discarded
+
 
 def t_error(t):
     print("Caracter no reconocido: '%s'" % t.value[0])
     t.lexer.skip(1)
 
 
-lex.lex()
-
-lexer = lex.lex()
+analizar = lex.lex()
 
 
-def analisis_lexer(entrada):
+def analisis_lex(entrada):
     lista_tok = []
-    lexer = lex.lex()
-    lexer.input(entrada)
-    while True:
-        tok = lexer.token()
+    analizar = lex.lex()
+    analizar.input(entrada)
+    while (True):
+        tok = analizar.token()
         if not tok: break
         lista_tok.append(tok)
     return lista_tok
-

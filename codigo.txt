@@ -1,0 +1,4 @@
+a="on"
+lista = ["hola","Perro","Burro"]
+listaNueva =[]
+WHILE a=="on" {if b=="uno"{for i in a { print(i) }} else if b=="dos" {for i in lista {for letra in lista {if lista.isAlpha() == False {ban ="0"}}if b!="0" {listaNueva.append(i)}}}if b=="tres" {a="off"}}
