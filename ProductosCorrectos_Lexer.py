@@ -10,22 +10,15 @@ import re
 import os
 import codecs
 
-reservadas = ['INPUT', 'PRINT', 'BREAK','ISALPHA','APPEND', 'DO', 'WHILE', 'IF', 'ELSE','ELSEIF', 'FOR', 'IN', 'RETURN', 'TRUE', 'FALSE']
+reservadas = ['INPUT', 'PRINT', 'ISALPHA', 'APPEND', 'WHILE', 'IF', 'ELSE', 'ELSEIF', 'FOR', 'IN',
+              'RETURN', 'TRUE', 'FALSE']
 
-tokens = ['ID', 'VAR', 'PLUS','DOT' ,'MINUS', 'STRING', 'COMMENT', 'TIMES', 'DIVIDE', 'NUMBER', 'PLUSPLUS', 'SEMICOLON',
-          'EQUALS', 'PRODUCTO', 'EQUAL' 'NUMBER', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET',
-          'COMILLA', 'COMMA', 'LT', 'GT', 'LTE', 'GTE', 'EQUALV', 'NOTEQUALV'] + reservadas
+tokens = ['STRING', 'COMMENT', 'NUMBER', 'EQUALS', 'PRODUCTO', 'NUMBER', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN',
+          'LBRACKET', 'RBRACKET', 'COMILLA', 'COMMA', 'LT', 'GT', 'LTE', 'GTE', 'EQUALV', 'NOTEQUALV'] + reservadas
 
-t_PLUS = r'\+'
-t_MINUS = r'-'
-t_TIMES = r'\*'
-t_PLUSPLUS = r'\+\+'
-t_INPUT = r'input'
 t_FOR = r'for'
 t_DOT = r'\.'
-t_DIVIDE = r'/'
 t_EQUALS = r'='
-t_SEMICOLON = r';'
 # t_NAME = r'[a-zA-Z_ ][a-zA-Z0-9_: ]*'
 t_PRODUCTO = r'[A-Z][a-zA-Z0-9 ]*'
 t_COMMA = r','
@@ -44,13 +37,18 @@ t_EQUALV = r'=='
 t_NOTEQUALV = r'!='
 t_STRING = r'\"[a-zA-Z0-9]+\"'
 
+t_ignore = ' \t'
 
-def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
-    if t.value.upper() in reservadas:
-        t.value = t.value.upper()
-        # reservadas.get(t.value,'ID')
-        t.type = t.value
+
+def t_INPUT(t):
+    r'input'
+    t.type = reservadas.get(t.value, 'input')
+    return t
+
+
+def t_PRINT(t):
+    r'print'
+    t.type = reservadas.get(t.value, 'print')
     return t
 
 
@@ -70,14 +68,6 @@ def t_newline(t):
     r'\n+'
     print("Newline found")
     t.lexer.lineno += len(t.value)
-
-
-t_ignore = ' \t'
-
-
-def t_single_line_comment(t):
-    r'^//.*'
-    pass
 
 
 def t_NUMBER(t):
