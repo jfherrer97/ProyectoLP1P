@@ -10,14 +10,24 @@ import re
 import os
 import codecs
 
-reservadas = ['INPUT', 'PRINT', 'ISALPHA', 'APPEND', 'WHILE', 'IF', 'ELIF', 'ELSE', 'FOR', 'IN', 'NOT']
+reservadas = ['INPUT','AND','PRINT', 'BREAK','ISALPHA','APPEND', 'DO', 'WHILE', 'IF', 'ELSE','ELSEIF', 'FOR', 'NOT','IN', 'RETURN', 'TRUE', 'FALSE']
 
-tokens = ['EQUALS', 'PRODUCTO', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN', "NEWLINE", "TAB", "COMMENT",
-          'LBRACKET', 'RBRACKET', 'COMILLA', 'COMMA', 'LT', 'GT', 'LTE', 'GTE', 'EQUALV', 'NOTEQUALV'] + reservadas
+tokens = ['ID', 'VAR', 'PLUS','DOT' ,'MINUS', 'STRING', 'COMMENT', 'TIMES', 'DIVIDE', 'NUMBER', 'PLUSPLUS', 'SEMICOLON',
+          'EQUALS', 'PRODUCTO', 'EQUAL' 'NUMBER', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET',
+          'COMILLA', 'COMMA', 'LT', 'GT', 'LTE', 'GTE', 'EQUALV', 'NOTEQUALV'] + reservadas
 
-
-t_VARIABLE = r'[a-z][a-zA-Z]*'
+t_PLUS = r'\+'
+t_MINUS = r'-'
+t_TIMES = r'\*'
+t_PLUSPLUS = r'\+\+'
+t_INPUT = r'input'
+t_FOR = r'for'
+t_DOT = r'\.'
+t_DIVIDE = r'/'
 t_EQUALS = r'='
+t_SEMICOLON = r';'
+# t_NAME = r'[a-zA-Z_ ][a-zA-Z0-9_: ]*'
+t_PRODUCTO = r'[A-Z][a-zA-Z0-9 ]*'
 t_COMMA = r','
 t_COMILLA = r'\"'
 t_LBRACE = r'{'
@@ -26,88 +36,56 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
+t_LT = r'<'
+t_GT = r'>'
+t_LTE = r'<='
+t_GTE = r'>='
 t_EQUALV = r'=='
 t_NOTEQUALV = r'!='
+t_STRING = r'\"[a-zA-Z0-9-_ ]+\"'
 
-t_ignore = ' '
 
-
-def t_INPUT(t):
-    r'input'
-    t.type = reservadas.get(t.value, 'input')
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    if t.value.upper() in reservadas:
+        t.value = t.value.upper()
+        # reservadas.get(t.value,'ID')
+        t.type = t.value
     return t
 
 
-def t_PRINT(t):
-    r'print'
-    t.type = reservadas.get(t.value, 'print')
+def t_TRUE(t):
+    r'True'
+    t.type = reservadas.get(t.value, 'True')
     return t
 
 
-def t_ISALPHA(t):
-    r'isalpha()'
-    t.type = reservadas.get(t.value, 'isalpha()')
+def t_FALSE(t):
+    r'False'
+    t.type = reservadas.get(t.value, 'False')
     return t
 
 
-def t_APPEND(t):
-    r'append'
-    t.type = reservadas.get(t.value, 'append')
-    return t
 
 
-def t_WHILE(t):
-    r'while'
-    t.type = reservadas.get(t.value, 'while')
-    return t
-
-
-def t_IF(t):
-    r'if'
-    t.type = reservadas.get(t.value, 'if')
-    return t
-
-
-def t_ELIF(t):
-    r'elif'
-    t.type = reservadas.get(t.value, 'elif')
-    return t
-
-
-def t_ELSE(t):
-    r'else'
-    t.type = reservadas.get(t.value, 'else')
-    return t
-
-
-def t_FOR(t):
-    r'for'
-    t.type = reservadas.get(t.value, 'for')
-    return t
-
-
-def t_IN(t):
-    r'in'
-    t.type = reservadas.get(t.value, 'in')
-    return t
-
-
-def t_NOT(t):
-    r'not'
-    t.type = reservadas.get(t.value, 'not')
-    return t
-
-
-def t_NEWLINE(t):
+def t_newline(t):
     r'\n+'
     print("Newline found")
     t.lexer.lineno += len(t.value)
 
 
-def t_TAB(t):
-    r'\t+'
-    print("Tab found")
-    t.lexer.lineno += len(t.value)
+t_ignore = ' \t'
+
+
+def t_single_line_comment(t):
+    r'^//.*'
+    pass
+
+
+def t_NUMBER(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
 
 
 def t_COMMENT(t):
@@ -121,9 +99,27 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-analizar = lex.lex()
+lexer = lex.lex()
 
+"""
+file = open("codigo.txt", "r")
+print("***Challenge Complete***")
+#print(file.read())
+#result = parser.parse(file.read())
+#print(result)
+#lexer.input(file.read())
 
+for linea in file:
+    #parser.parse(linea)
+    lexer.input(linea)
+    while True:
+        token = lexer.token()
+        if not token:
+            break
+        else:
+            print(token)
+
+print()"""
 def analisis_lex(entrada):
     lista_tok = []
     analizar = lex.lex()

@@ -35,23 +35,22 @@ precedence = (
 listYacc = []
 
 
+def p_program(p):
+    '''program : block'''
+    print("program")
+    listYacc.append("program")
+
+def p_block(p):
+    '''block :  statementList'''
+    # p[0] = block(p[1],p[2],p[3],p[4],"block")
+    print("block")
+
+
 def p_elements(t):
     '''
     elements : expression
             | expression COMMA elements
     '''
-
-
-def p_input(p):
-        'statement : INPUT LPAREN STRING RPAREN '
-        input(p[3])
-
-
-def p_statement_assign_input(p):
-    '''statement :  ID EQUALS INPUT LPAREN STRING RPAREN
-
-    '''
-    input(p[3])
 
 
 def p_print(p):
@@ -62,9 +61,15 @@ def p_print(p):
 def p_print_expressioin(p):
     'statement : PRINT LPAREN expression RPAREN '
     print(p[3])
+
 def p_statement_assign_print(p):
         '''statement :  PRINT LPAREN expression COMMA STRING COMMA expression RPAREN'''
         print(p[3], p[5], p[7])
+
+def p_statement_Append(t):
+    '''statement : ID DOT APPEND LPAREN expression RPAREN'''
+    print("function apppend")
+    listYacc.append("function append")
 
 def p_statement1(p):
     '''statement : ID EQUALS expression'''
@@ -74,28 +79,20 @@ def p_statement1(p):
 
 
 def p_statement2(p):
-    '''statement : IF condition LBRACE statement RBRACE  statementIF'''
+    '''statement : IF condition LBRACE statementList RBRACE  statementIF '''
     # p[0] = statement4(p[2],p[4],"statement4")
     print("statement 2")
     listYacc.append("Statement IF")
 
 
 def p_statement3(p):
-    '''statement : WHILE condition LBRACE statement RBRACE '''
+    '''statement : WHILE condition LBRACE statementList RBRACE '''
     # p[0] = statement5(p[2],p[4],"statement5")
     print("statement 3 WHIlE")
     listYacc.append("Statement WHILE")
 
-
-def p_statement4(p):
-    '''statement : FOR ID EQUALS NUMBER SEMICOLON condition SEMICOLON ID PLUSPLUS LBRACE statement RBRACE '''
-    # p[0] = statement5(p[2],p[4],"statement5")
-    print("statement 4")
-    listYacc.append("Statement FOR")
-
-
 def p_statement5(p):
-    '''statement : FOR ID IN ID LBRACE statement RBRACE'''
+    '''statement : FOR ID IN ID LBRACE statementList RBRACE'''
     # p[0] = statement5(p[2],p[4],"statement5")
     print("statement 5 FOR IN")
     listYacc.append("Statement FOR IN")
@@ -109,14 +106,14 @@ def p_statementEmpty(p):
 
 
 def p_statementIF1(p):
-    '''statementIF : ELSE LBRACE statement RBRACE'''
+    '''statementIF : ELSE LBRACE statementList RBRACE'''
     print("Statement if1")
     listYacc.append("Statement if1")
 
 
 def p_statementIF2(p):
-    '''statementIF : ELSE IF condition LBRACE statement RBRACE'''
-    print("Statement if2")
+    '''statementIF : ELSE IF condition LBRACE statementList RBRACE statementIF'''
+    print("Statement if2 else")
     listYacc.append("Statement if2")
 
 
@@ -127,32 +124,37 @@ def p_statementIFEmpty(p):
 
 
 def p_statementList1(p):
-    '''statementList : statement'''
+    '''statementList : statement
+                    | statement statementList'''
     # p[0] = statementList1(p[1],"statementList1")
     print("statementList 1")
     listYacc.append("StatementList 1")
 
 
-def p_statementList2(p):
-    '''statementList : statementList SEMICOLON statement'''
-    # p[0] = statementList2(p[1],p[3],"statementList2")
-    print("statementList 2")
-    listYacc.append("StatementList 2")
-
 
 def p_condition1(p):
-    '''condition : expression relation expression'''
+    '''condition : expression relation expression
+                    | expression relation expression relation expression relation expression '''
     # p[0] = condition2(p[1],p[2],p[3],"condition2")
     print("condition 1")
     listYacc.append("condition 1")
 
-
+def p_relationAND(p):
+    '''relation : AND'''
+    # p[0] = relation1(Assign(p[1]),"relation1")
+    print("relation AND")
+    listYacc.append("relation AND")
 def p_relation1(p):
     '''relation : EQUALV'''
     # p[0] = relation1(Assign(p[1]),"relation1")
     print("relation 1")
     listYacc.append("relation 1")
 
+def p_relationNotEqula(p):
+    '''relation : NOTEQUALV'''
+    # p[0] = relation1(Assign(p[1]),"relation1")
+    print("relation NotEqual")
+    listYacc.append("relation 1")
 
 def p_relation2(p):
     '''relation : LT'''
@@ -181,6 +183,11 @@ def p_relation5(p):
     print("relation 5")
     listYacc.append("relation 5")
 
+def p_relationNotIN(p):
+    '''relation : NOT IN'''
+    # p[0] = relation6(GTE(p[1]),"relation6")
+    print("relation NOT IN")
+    listYacc.append("relation Not in")
 
 def p_expression1(p):
     '''expression : term'''
@@ -193,10 +200,7 @@ def p_expresion_isAlpha(t):
     '''factor : ID DOT ISALPHA LPAREN RPAREN'''
     print("function isAlpha()")
     listYacc.append("isAlpha")
-def p_expresion_Append(t):
-    '''factor : ID DOT APPEND LPAREN expression RPAREN'''
-    print("function apppend")
-    listYacc.append("function append")
+
 
 def p_expression2(p):
     '''expression : addingOperator term'''
@@ -224,7 +228,6 @@ def p_addingOperator2(p):
     # p[0] = addingOperator2(Minus(p[1]),"subtractionOperator")
     print("addingOperator 2")
     listYacc.append("addingOperator 2")
-
 
 def p_term1(p):
     '''term : factor'''
@@ -264,9 +267,19 @@ def p_factor1(p):
 def p_factor0(p):
     '''factor : STRING'''
     # p[0] = factor1(Id(p[1]),"factor1")
-    print("factor 0")
+    print("factor 0 String")
     listYacc.append("factor 0")
-
+def p_factor0ListStruc(p):
+    '''factor : LBRACKET elements RBRACKET
+                | LBRACKET  RBRACKET'''
+    # p[0] = factor1(Id(p[1]),"factor1")
+    print("factor List Struct")
+    listYacc.append("factor 0")
+def p_factorInput(p):
+    '''factor : INPUT LPAREN STRING RPAREN  '''
+    # p[0] = factor1(Id(p[1]),"factor1")
+    print("factor Input")
+    listYacc.append("factor Input")
 def p_factor2(p):
     '''factor : NUMBER'''
     # p[0] = factor2(Number(p[1]),"factor2")
@@ -307,25 +320,18 @@ def analisis_sem(entrada):
     result = parser.parse(entrada)
     listaYacc2.append(result)
     return listYacc
-lexer=lex.lex()
 
 
 #entrada = input("Introduce una cadena: ")
 parser = yacc.yacc()
 file = open("codigo.txt", "r")
 print("***Challenge Complete***")
-for linea in file:
-    parser.parse(linea)
+#print(file.read())
+result = parser.parse(file.read())
+print(result)
+#lexer.input(file.read())
 
-    lexer.input(linea)
-    while True:
-        token = lexer.token()
-        if not token:
-            break
-        else:
-            print(token)
 
-print()
 
 """
 listYacc = []
