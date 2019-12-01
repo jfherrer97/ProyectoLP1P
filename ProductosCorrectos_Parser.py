@@ -35,92 +35,18 @@ precedence = (
 listYacc = []
 
 
-def p_program(p):
-    '''program : block'''
-    print("program")
-    listYacc.append("program")
-
-
-# p[0] = program(p[1],"program")
-
-def p_block(p):
-    '''block : constDecl varDecl statement statementList'''
-    # p[0] = block(p[1],p[2],p[3],p[4],"block")
-    print("block")
-
-
-def p_constDecl(p):
-    '''constDecl : VAR constAssignmentList SEMICOLON'''
-    # p[0] = constDecl(p[2],"constDecl")
-    print("constDecl")
-    listYacc.append("constDecl")
-
-
-def p_constDeclEmpty(p):
-    '''constDecl : empty'''
-    # p[0] = Null()
-    print("nulo")
-    listYacc.append("Nulo constDecl")
-
-
-def p_constAssignmentList1(p):
-    '''constAssignmentList : ID EQUALS NUMBER'''
-    # p[0] = constAssignmentList1(Id(p[1]),Assign(p[2]),Number(p[3]),"constAssignmentList1")
-    print("constAssignmentList 1")
-    listYacc.append("constAssignmentList1")
-
-def p_struct_list(p):
-    ''' statement : ID EQUALS LBRACKET elements RBRACKET'''
-    print("List Struct ")
-    listYacc.append("List struct")
-def p_struct_list_empty(p):
-    ''' statement : ID EQUALS LBRACKET  RBRACKET'''
-    print("List Struct Empty")
-    listYacc.append("List struct Empty")
-
-
 def p_elements(t):
     '''
     elements : expression
             | expression COMMA elements
     '''
-def p_constAssignmentList2(p):
-    '''constAssignmentList : constAssignmentList COMMA ID EQUALS NUMBER'''
-    # p[0] = constAssignmentList2(p[1],Id(p[3]),Assign(p[4]),Number(p[5]),"constAssignmentList2")
-    print("constAssignmentList 2")
-    listYacc.append("constAssignmentList2")
 
-
-def p_varDecl1(p):
-    '''varDecl : VAR identList SEMICOLON'''
-    # p[0] = varDecl1(p[2],"VarDecl1")
-    print("varDecl 1")
-    listYacc.append("varDecl 1")
-
-
-def p_varDeclEmpty(p):
-    '''varDecl : empty'''
-    # p[0] = Null()
-    print("nulo")
-    listYacc.append("Nulo VarDecl")
-
-
-def p_identList1(p):
-    '''identList : ID'''
-    # p[0] = identList1(Id(p[1]),"identList1")
-    print("identList 1")
-    listYacc.append("IdentList 1")
-
-
-def p_identList2(p):
-    '''identList : identList COMMA ID'''
-    # p[0] = identList2(p[1],Id(p[3]),"identList2")
-    print("identList 2")
-    listYacc.append("IdentList 2")
 
 def p_input(p):
         'statement : INPUT LPAREN STRING RPAREN '
         input(p[3])
+
+
 def p_statement_assign_input(p):
     '''statement :  ID EQUALS INPUT LPAREN STRING RPAREN
 

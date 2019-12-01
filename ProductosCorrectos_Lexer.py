@@ -10,17 +10,14 @@ import re
 import os
 import codecs
 
-reservadas = ['INPUT', 'PRINT', 'ISALPHA', 'APPEND', 'WHILE', 'IF', 'ELSE', 'ELSEIF', 'FOR', 'IN',
-              'RETURN', 'TRUE', 'FALSE']
+reservadas = ['INPUT', 'PRINT', 'ISALPHA', 'APPEND', 'WHILE', 'IF', 'ELIF', 'ELSE', 'FOR', 'IN', 'NOT']
 
-tokens = ['STRING', 'COMMENT', 'NUMBER', 'EQUALS', 'PRODUCTO', 'NUMBER', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN',
+tokens = ['EQUALS', 'PRODUCTO', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN', "NEWLINE", "TAB", "COMMENT",
           'LBRACKET', 'RBRACKET', 'COMILLA', 'COMMA', 'LT', 'GT', 'LTE', 'GTE', 'EQUALV', 'NOTEQUALV'] + reservadas
 
-t_FOR = r'for'
-t_DOT = r'\.'
+
+t_VARIABLE = r'[a-z][a-zA-Z]*'
 t_EQUALS = r'='
-# t_NAME = r'[a-zA-Z_ ][a-zA-Z0-9_: ]*'
-t_PRODUCTO = r'[A-Z][a-zA-Z0-9 ]*'
 t_COMMA = r','
 t_COMILLA = r'\"'
 t_LBRACE = r'{'
@@ -29,15 +26,10 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
-t_LT = r'<'
-t_GT = r'>'
-t_LTE = r'<='
-t_GTE = r'>='
 t_EQUALV = r'=='
 t_NOTEQUALV = r'!='
-t_STRING = r'\"[a-zA-Z0-9]+\"'
 
-t_ignore = ' \t'
+t_ignore = ' '
 
 
 def t_INPUT(t):
@@ -52,28 +44,70 @@ def t_PRINT(t):
     return t
 
 
-def t_TRUE(t):
-    r'True'
-    t.type = reservadas.get(t.value, 'True')
+def t_ISALPHA(t):
+    r'isalpha()'
+    t.type = reservadas.get(t.value, 'isalpha()')
     return t
 
 
-def t_FALSE(t):
-    r'False'
-    t.type = reservadas.get(t.value, 'False')
+def t_APPEND(t):
+    r'append'
+    t.type = reservadas.get(t.value, 'append')
     return t
 
 
-def t_newline(t):
+def t_WHILE(t):
+    r'while'
+    t.type = reservadas.get(t.value, 'while')
+    return t
+
+
+def t_IF(t):
+    r'if'
+    t.type = reservadas.get(t.value, 'if')
+    return t
+
+
+def t_ELIF(t):
+    r'elif'
+    t.type = reservadas.get(t.value, 'elif')
+    return t
+
+
+def t_ELSE(t):
+    r'else'
+    t.type = reservadas.get(t.value, 'else')
+    return t
+
+
+def t_FOR(t):
+    r'for'
+    t.type = reservadas.get(t.value, 'for')
+    return t
+
+
+def t_IN(t):
+    r'in'
+    t.type = reservadas.get(t.value, 'in')
+    return t
+
+
+def t_NOT(t):
+    r'not'
+    t.type = reservadas.get(t.value, 'not')
+    return t
+
+
+def t_NEWLINE(t):
     r'\n+'
     print("Newline found")
     t.lexer.lineno += len(t.value)
 
 
-def t_NUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
-    return t
+def t_TAB(t):
+    r'\t+'
+    print("Tab found")
+    t.lexer.lineno += len(t.value)
 
 
 def t_COMMENT(t):

@@ -28,3 +28,5 @@ while ciclo == "on":
         print()
     elif opcion == "4":
         ciclo = "off"
+    else:
+        print("***Opción no válida***\n")
