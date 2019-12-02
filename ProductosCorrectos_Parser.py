@@ -5,21 +5,16 @@ PARALELO 1
 '''
 
 import ply.yacc as yacc
-import os
-import codecs
-import re
 from ProductosCorrectos_Lexer import *
-from sys import stdin
 
-# Prioridades
 precedence = (
     ('right', 'ID', 'IF', 'WHILE','FOR'),
     ('right', 'EQUALS'),
     ('left', 'LT', 'LTE', 'GT', 'GTE'),
     ('left', 'LPAREN', 'RPAREN'),
 )
-#GENERALES
 listYacc = []
+errorParser=[]
 
 
 def p_programa(p):
@@ -42,10 +37,11 @@ def p_elements(t):
 
 def p_print(p):
     'statement : PRINT LPAREN STRING RPAREN '
-    listYacc.append("Print")
+    listYacc.append("Print Simple")
 
 def p_print_expressioin(p):
     'statement : PRINT LPAREN expression RPAREN '
+    listYacc.append("Print Expression")
 
 def p_statement_assign_print(p):
         '''statement :  PRINT LPAREN expression COMMA STRING COMMA expression RPAREN'''
@@ -223,12 +219,20 @@ def p_empty(p):
 
 def p_error(p):
     print("Error de sintaxis ", p)
-    print("Error en la linea " + str(p.lineno))
+    listYacc.append("Error de sintaxis: "+str(p))
+    errorParser.append(1)
 
+def error_Parser(entrada):
+    parser = yacc.yacc()
+    parser.parse(entrada)
+    ban = 1 in errorParser
+    return ban
 
 def analisis_sem(entrada):
     listaYacc2 = []
     parser = yacc.yacc()
+    listYacc.clear()
+    errorParser.clear()
     result = parser.parse(entrada)
     listaYacc2.append(result)
     return listYacc
@@ -237,5 +241,4 @@ def analisis_sem(entrada):
 parser = yacc.yacc()
 file = open("codigo.txt", "r")
 result = parser.parse(file.read())
-
 

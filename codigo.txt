@@ -8,7 +8,7 @@ while a == "on"{
         for producto in lista{
             print("producto")
         }
-    }else if b == "dos"{
+    }else if  b == "dos"{
         for producto in lista{
             for letra in producto{
                 print("in---- ")

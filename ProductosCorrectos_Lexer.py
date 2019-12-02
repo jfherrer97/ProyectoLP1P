@@ -5,10 +5,9 @@ PARALELO 1
 '''
 
 import ply.lex as lex
-import sys
-import re
-import os
-import codecs
+
+lista_tok = []
+list_error=[]
 
 reservadas = ['INPUT','AND','PRINT','ISALPHA','APPEND', 'WHILE', 'IF', 'ELSE', 'FOR', 'NOT','IN','TRUE', 'FALSE']
 
@@ -87,6 +86,8 @@ def t_COMMENT(t):
 
 
 def t_error(t):
+    lista_tok.append("caracter no reconocido"+t.value[0])
+    list_error.append(1)
     print("Caracter no reconocido: '%s'" % t.value[0])
     t.lexer.skip(1)
 
@@ -95,11 +96,6 @@ lexer = lex.lex()
 
 
 file = open("codigo.txt", "r")
-print("***Challenge Complete***")
-#print(file.read())
-#result = parser.parse(file.read())
-#print(result)
-#lexer.input(file.read())
 
 for linea in file:
     #parser.parse(linea)
@@ -112,10 +108,18 @@ for linea in file:
             print(token)
 
 print()
-def analisis_lex(entrada):
-    lista_tok = []
+
+def error_lex(entrada):
     analizar = lex.lex()
     analizar.input(entrada)
+    ban = 1 in list_error
+    return ban
+
+def analisis_lex(entrada):
+    analizar = lex.lex()
+    analizar.input(entrada)
+    lista_tok.clear()
+    list_error.clear()
     while (True):
         tok = analizar.token()
         if not tok: break
