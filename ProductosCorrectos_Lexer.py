@@ -10,26 +10,18 @@ import re
 import os
 import codecs
 
-reservadas = ['INPUT','AND','PRINT', 'BREAK','ISALPHA','APPEND', 'DO', 'WHILE', 'IF', 'ELSE','ELSEIF', 'FOR', 'NOT','IN', 'RETURN', 'TRUE', 'FALSE']
+reservadas = ['INPUT','AND','PRINT','ISALPHA','APPEND', 'WHILE', 'IF', 'ELSE', 'FOR', 'NOT','IN','TRUE', 'FALSE']
 
-tokens = ['ID', 'VAR', 'PLUS','DOT' ,'MINUS', 'STRING', 'COMMENT', 'TIMES', 'DIVIDE', 'NUMBER', 'PLUSPLUS', 'SEMICOLON',
-          'EQUALS', 'PRODUCTO', 'EQUAL' 'NUMBER', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET',
-          'COMILLA', 'COMMA', 'LT', 'GT', 'LTE', 'GTE', 'EQUALV', 'NOTEQUALV'] + reservadas
+tokens = ['ID','DOT' , 'STRING', 'COMMENT','NUMBER',
+          'EQUALS', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET',
+           'COMMA', 'LT', 'GT', 'LTE', 'GTE', 'EQUALV', 'NOTEQUALV'] + reservadas
 
-t_PLUS = r'\+'
-t_MINUS = r'-'
-t_TIMES = r'\*'
-t_PLUSPLUS = r'\+\+'
+
 t_INPUT = r'input'
 t_FOR = r'for'
 t_DOT = r'\.'
-t_DIVIDE = r'/'
 t_EQUALS = r'='
-t_SEMICOLON = r';'
-# t_NAME = r'[a-zA-Z_ ][a-zA-Z0-9_: ]*'
-t_PRODUCTO = r'[A-Z][a-zA-Z0-9 ]*'
 t_COMMA = r','
-t_COMILLA = r'\"'
 t_LBRACE = r'{'
 t_RBRACE = r'}'
 t_LPAREN = r'\('
@@ -101,7 +93,7 @@ def t_error(t):
 
 lexer = lex.lex()
 
-"""
+
 file = open("codigo.txt", "r")
 print("***Challenge Complete***")
 #print(file.read())
@@ -119,7 +111,7 @@ for linea in file:
         else:
             print(token)
 
-print()"""
+print()
 def analisis_lex(entrada):
     lista_tok = []
     analizar = lex.lex()

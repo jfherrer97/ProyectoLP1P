@@ -2,17 +2,7 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    BREAK
-    COMILLA
     COMMENT
-    DO
-    ELSEIF
-    EQUALNUMBER
-    PLUSPLUS
-    PRODUCTO
-    RETURN
-    SEMICOLON
-    VAR
 
 Grammar
 
@@ -47,91 +37,67 @@ Rule 27    relation -> GTE
 Rule 28    relation -> NOT IN
 Rule 29    expression -> term
 Rule 30    factor -> ID DOT ISALPHA LPAREN RPAREN
-Rule 31    expression -> addingOperator term
-Rule 32    expression -> expression addingOperator term
-Rule 33    addingOperator -> PLUS
-Rule 34    addingOperator -> MINUS
-Rule 35    term -> factor
-Rule 36    term -> term multiplyingOperator factor
-Rule 37    multiplyingOperator -> TIMES
-Rule 38    multiplyingOperator -> DIVIDE
-Rule 39    factor -> ID
-Rule 40    factor -> STRING
-Rule 41    factor -> LBRACKET elements RBRACKET
-Rule 42    factor -> LBRACKET RBRACKET
-Rule 43    factor -> INPUT LPAREN STRING RPAREN
-Rule 44    factor -> NUMBER
-Rule 45    factor -> FALSE
-Rule 46    factor -> TRUE
-Rule 47    factor -> LPAREN expression RPAREN
-Rule 48    empty -> <empty>
+Rule 31    term -> factor
+Rule 32    factor -> ID
+Rule 33    factor -> STRING
+Rule 34    factor -> LBRACKET elements RBRACKET
+Rule 35    factor -> LBRACKET RBRACKET
+Rule 36    factor -> INPUT LPAREN STRING RPAREN
+Rule 37    factor -> NUMBER
+Rule 38    factor -> FALSE
+Rule 39    factor -> TRUE
+Rule 40    empty -> <empty>
 
 Terminals, with rules where they appear
 
 AND                  : 21
 APPEND               : 8
-BREAK                : 
-COMILLA              : 
 COMMA                : 4 7 7
 COMMENT              : 
-DIVIDE               : 38
-DO                   : 
 DOT                  : 8 30
 ELSE                 : 14 15
-ELSEIF               : 
-EQUALNUMBER          : 
 EQUALS               : 9
 EQUALV               : 22
-FALSE                : 45
+FALSE                : 38
 FOR                  : 12
 GT                   : 25
 GTE                  : 27
-ID                   : 8 9 12 12 30 39
+ID                   : 8 9 12 12 30 32
 IF                   : 10 15
 IN                   : 12 28
-INPUT                : 43
+INPUT                : 36
 ISALPHA              : 30
 LBRACE               : 10 11 12 14 15
-LBRACKET             : 41 42
-LPAREN               : 5 6 7 8 30 43 47
+LBRACKET             : 34 35
+LPAREN               : 5 6 7 8 30 36
 LT                   : 24
 LTE                  : 26
-MINUS                : 34
 NOT                  : 28
 NOTEQUALV            : 23
-NUMBER               : 44
-PLUS                 : 33
-PLUSPLUS             : 
+NUMBER               : 37
 PRINT                : 5 6 7
-PRODUCTO             : 
 RBRACE               : 10 11 12 14 15
-RBRACKET             : 41 42
-RETURN               : 
-RPAREN               : 5 6 7 8 30 43 47
-SEMICOLON            : 
-STRING               : 5 7 40 43
-TIMES                : 37
-TRUE                 : 46
-VAR                  : 
+RBRACKET             : 34 35
+RPAREN               : 5 6 7 8 30 36
+STRING               : 5 7 33 36
+TRUE                 : 39
 WHILE                : 11
 error                : 
 
 Nonterminals, with rules where they appear
 
-addingOperator       : 31 32
 block                : 1
 condition            : 10 11 15
-elements             : 4 41
+elements             : 4 34
 empty                : 13 16
-expression           : 3 4 6 7 7 8 9 19 19 20 20 20 20 32 47
-factor               : 35 36
-multiplyingOperator  : 36
+expression           : 3 4 6 7 7 8 9 19 19 20 20 20 20
+factor               : 31
 program              : 0
 relation             : 19 20 20 20
 statement            : 17 18
 statementIF          : 10 15
 statementList        : 2 10 11 12 14 15 18
-term                 : 29 31 32 36
+term                 : 29
 
 Parsing method: LALR
 
@@ -151,7 +117,7 @@ state 0
     (11) statement -> . WHILE condition LBRACE statementList RBRACE
     (12) statement -> . FOR ID IN ID LBRACE statementList RBRACE
     (13) statement -> . empty
-    (48) empty -> .
+    (40) empty -> .
 
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for ID resolved as shift
@@ -163,13 +129,13 @@ state 0
     IF              shift and go to state 7
     WHILE           shift and go to state 8
     FOR             shift and go to state 9
-    $end            reduce using rule 48 (empty -> .)
+    $end            reduce using rule 40 (empty -> .)
 
-  ! PRINT           [ reduce using rule 48 (empty -> .) ]
-  ! ID              [ reduce using rule 48 (empty -> .) ]
-  ! IF              [ reduce using rule 48 (empty -> .) ]
-  ! WHILE           [ reduce using rule 48 (empty -> .) ]
-  ! FOR             [ reduce using rule 48 (empty -> .) ]
+  ! PRINT           [ reduce using rule 40 (empty -> .) ]
+  ! ID              [ reduce using rule 40 (empty -> .) ]
+  ! IF              [ reduce using rule 40 (empty -> .) ]
+  ! WHILE           [ reduce using rule 40 (empty -> .) ]
+  ! FOR             [ reduce using rule 40 (empty -> .) ]
 
     program                        shift and go to state 1
     block                          shift and go to state 2
@@ -212,7 +178,7 @@ state 4
     (11) statement -> . WHILE condition LBRACE statementList RBRACE
     (12) statement -> . FOR ID IN ID LBRACE statementList RBRACE
     (13) statement -> . empty
-    (48) empty -> .
+    (40) empty -> .
 
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for ID resolved as shift
@@ -229,13 +195,13 @@ state 4
     WHILE           shift and go to state 8
     FOR             shift and go to state 9
 
-  ! PRINT           [ reduce using rule 48 (empty -> .) ]
-  ! ID              [ reduce using rule 48 (empty -> .) ]
-  ! IF              [ reduce using rule 48 (empty -> .) ]
-  ! WHILE           [ reduce using rule 48 (empty -> .) ]
-  ! FOR             [ reduce using rule 48 (empty -> .) ]
-  ! $end            [ reduce using rule 48 (empty -> .) ]
-  ! RBRACE          [ reduce using rule 48 (empty -> .) ]
+  ! PRINT           [ reduce using rule 40 (empty -> .) ]
+  ! ID              [ reduce using rule 40 (empty -> .) ]
+  ! IF              [ reduce using rule 40 (empty -> .) ]
+  ! WHILE           [ reduce using rule 40 (empty -> .) ]
+  ! FOR             [ reduce using rule 40 (empty -> .) ]
+  ! $end            [ reduce using rule 40 (empty -> .) ]
+  ! RBRACE          [ reduce using rule 40 (empty -> .) ]
 
     statement                      shift and go to state 4
     statementList                  shift and go to state 11
@@ -265,39 +231,29 @@ state 7
     (19) condition -> . expression relation expression
     (20) condition -> . expression relation expression relation expression relation expression
     (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
+    (31) term -> . factor
     (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    ID              shift and go to state 19
+    STRING          shift and go to state 20
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
     condition                      shift and go to state 15
     expression                     shift and go to state 16
     term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
+    factor                         shift and go to state 18
 
 state 8
 
@@ -305,45 +261,35 @@ state 8
     (19) condition -> . expression relation expression
     (20) condition -> . expression relation expression relation expression relation expression
     (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
+    (31) term -> . factor
     (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    ID              shift and go to state 19
+    STRING          shift and go to state 20
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
-    condition                      shift and go to state 30
+    condition                      shift and go to state 26
     expression                     shift and go to state 16
     term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
+    factor                         shift and go to state 18
 
 state 9
 
     (12) statement -> FOR . ID IN ID LBRACE statementList RBRACE
 
-    ID              shift and go to state 31
+    ID              shift and go to state 27
 
 
 state 10
@@ -373,95 +319,74 @@ state 12
     (6) statement -> PRINT LPAREN . expression RPAREN
     (7) statement -> PRINT LPAREN . expression COMMA STRING COMMA expression RPAREN
     (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
+    (31) term -> . factor
     (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    STRING          shift and go to state 32
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    STRING          shift and go to state 28
+    ID              shift and go to state 19
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
-    expression                     shift and go to state 33
+    expression                     shift and go to state 29
     term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
+    factor                         shift and go to state 18
 
 state 13
 
     (8) statement -> ID DOT . APPEND LPAREN expression RPAREN
 
-    APPEND          shift and go to state 34
+    APPEND          shift and go to state 30
 
 
 state 14
 
     (9) statement -> ID EQUALS . expression
     (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
+    (31) term -> . factor
     (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    ID              shift and go to state 19
+    STRING          shift and go to state 20
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
-    expression                     shift and go to state 35
+    expression                     shift and go to state 31
     term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
+    factor                         shift and go to state 18
 
 state 15
 
     (10) statement -> IF condition . LBRACE statementList RBRACE statementIF
 
-    LBRACE          shift and go to state 36
+    LBRACE          shift and go to state 32
 
 
 state 16
 
     (19) condition -> expression . relation expression
     (20) condition -> expression . relation expression relation expression relation expression
-    (32) expression -> expression . addingOperator term
     (21) relation -> . AND
     (22) relation -> . EQUALV
     (23) relation -> . NOTEQUALV
@@ -470,29 +395,21 @@ state 16
     (26) relation -> . LTE
     (27) relation -> . GTE
     (28) relation -> . NOT IN
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
 
-    AND             shift and go to state 39
-    EQUALV          shift and go to state 40
-    NOTEQUALV       shift and go to state 41
-    LT              shift and go to state 42
-    GT              shift and go to state 43
-    LTE             shift and go to state 44
-    GTE             shift and go to state 45
-    NOT             shift and go to state 46
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
+    AND             shift and go to state 34
+    EQUALV          shift and go to state 35
+    NOTEQUALV       shift and go to state 36
+    LT              shift and go to state 37
+    GT              shift and go to state 38
+    LTE             shift and go to state 39
+    GTE             shift and go to state 40
+    NOT             shift and go to state 41
 
-    relation                       shift and go to state 37
-    addingOperator                 shift and go to state 38
+    relation                       shift and go to state 33
 
 state 17
 
     (29) expression -> term .
-    (36) term -> term . multiplyingOperator factor
-    (37) multiplyingOperator -> . TIMES
-    (38) multiplyingOperator -> . DIVIDE
 
     AND             reduce using rule 29 (expression -> term .)
     EQUALV          reduce using rule 29 (expression -> term .)
@@ -502,8 +419,6 @@ state 17
     LTE             reduce using rule 29 (expression -> term .)
     GTE             reduce using rule 29 (expression -> term .)
     NOT             reduce using rule 29 (expression -> term .)
-    PLUS            reduce using rule 29 (expression -> term .)
-    MINUS           reduce using rule 29 (expression -> term .)
     RPAREN          reduce using rule 29 (expression -> term .)
     COMMA           reduce using rule 29 (expression -> term .)
     PRINT           reduce using rule 29 (expression -> term .)
@@ -515,387 +430,244 @@ state 17
     RBRACE          reduce using rule 29 (expression -> term .)
     RBRACKET        reduce using rule 29 (expression -> term .)
     LBRACE          reduce using rule 29 (expression -> term .)
-    TIMES           shift and go to state 48
-    DIVIDE          shift and go to state 49
 
-    multiplyingOperator            shift and go to state 47
 
 state 18
 
-    (31) expression -> addingOperator . term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (31) term -> factor .
 
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    AND             reduce using rule 31 (term -> factor .)
+    EQUALV          reduce using rule 31 (term -> factor .)
+    NOTEQUALV       reduce using rule 31 (term -> factor .)
+    LT              reduce using rule 31 (term -> factor .)
+    GT              reduce using rule 31 (term -> factor .)
+    LTE             reduce using rule 31 (term -> factor .)
+    GTE             reduce using rule 31 (term -> factor .)
+    NOT             reduce using rule 31 (term -> factor .)
+    RPAREN          reduce using rule 31 (term -> factor .)
+    COMMA           reduce using rule 31 (term -> factor .)
+    PRINT           reduce using rule 31 (term -> factor .)
+    ID              reduce using rule 31 (term -> factor .)
+    IF              reduce using rule 31 (term -> factor .)
+    WHILE           reduce using rule 31 (term -> factor .)
+    FOR             reduce using rule 31 (term -> factor .)
+    $end            reduce using rule 31 (term -> factor .)
+    RBRACE          reduce using rule 31 (term -> factor .)
+    RBRACKET        reduce using rule 31 (term -> factor .)
+    LBRACE          reduce using rule 31 (term -> factor .)
 
-    term                           shift and go to state 50
-    factor                         shift and go to state 19
 
 state 19
 
-    (35) term -> factor .
+    (30) factor -> ID . DOT ISALPHA LPAREN RPAREN
+    (32) factor -> ID .
 
-    TIMES           reduce using rule 35 (term -> factor .)
-    DIVIDE          reduce using rule 35 (term -> factor .)
-    AND             reduce using rule 35 (term -> factor .)
-    EQUALV          reduce using rule 35 (term -> factor .)
-    NOTEQUALV       reduce using rule 35 (term -> factor .)
-    LT              reduce using rule 35 (term -> factor .)
-    GT              reduce using rule 35 (term -> factor .)
-    LTE             reduce using rule 35 (term -> factor .)
-    GTE             reduce using rule 35 (term -> factor .)
-    NOT             reduce using rule 35 (term -> factor .)
-    PLUS            reduce using rule 35 (term -> factor .)
-    MINUS           reduce using rule 35 (term -> factor .)
-    RPAREN          reduce using rule 35 (term -> factor .)
-    COMMA           reduce using rule 35 (term -> factor .)
-    PRINT           reduce using rule 35 (term -> factor .)
-    ID              reduce using rule 35 (term -> factor .)
-    IF              reduce using rule 35 (term -> factor .)
-    WHILE           reduce using rule 35 (term -> factor .)
-    FOR             reduce using rule 35 (term -> factor .)
-    $end            reduce using rule 35 (term -> factor .)
-    RBRACE          reduce using rule 35 (term -> factor .)
-    RBRACKET        reduce using rule 35 (term -> factor .)
-    LBRACE          reduce using rule 35 (term -> factor .)
+    DOT             shift and go to state 42
+    AND             reduce using rule 32 (factor -> ID .)
+    EQUALV          reduce using rule 32 (factor -> ID .)
+    NOTEQUALV       reduce using rule 32 (factor -> ID .)
+    LT              reduce using rule 32 (factor -> ID .)
+    GT              reduce using rule 32 (factor -> ID .)
+    LTE             reduce using rule 32 (factor -> ID .)
+    GTE             reduce using rule 32 (factor -> ID .)
+    NOT             reduce using rule 32 (factor -> ID .)
+    RPAREN          reduce using rule 32 (factor -> ID .)
+    COMMA           reduce using rule 32 (factor -> ID .)
+    PRINT           reduce using rule 32 (factor -> ID .)
+    ID              reduce using rule 32 (factor -> ID .)
+    IF              reduce using rule 32 (factor -> ID .)
+    WHILE           reduce using rule 32 (factor -> ID .)
+    FOR             reduce using rule 32 (factor -> ID .)
+    $end            reduce using rule 32 (factor -> ID .)
+    RBRACE          reduce using rule 32 (factor -> ID .)
+    RBRACKET        reduce using rule 32 (factor -> ID .)
+    LBRACE          reduce using rule 32 (factor -> ID .)
 
 
 state 20
 
-    (33) addingOperator -> PLUS .
+    (33) factor -> STRING .
 
-    ID              reduce using rule 33 (addingOperator -> PLUS .)
-    STRING          reduce using rule 33 (addingOperator -> PLUS .)
-    LBRACKET        reduce using rule 33 (addingOperator -> PLUS .)
-    INPUT           reduce using rule 33 (addingOperator -> PLUS .)
-    NUMBER          reduce using rule 33 (addingOperator -> PLUS .)
-    FALSE           reduce using rule 33 (addingOperator -> PLUS .)
-    TRUE            reduce using rule 33 (addingOperator -> PLUS .)
-    LPAREN          reduce using rule 33 (addingOperator -> PLUS .)
+    AND             reduce using rule 33 (factor -> STRING .)
+    EQUALV          reduce using rule 33 (factor -> STRING .)
+    NOTEQUALV       reduce using rule 33 (factor -> STRING .)
+    LT              reduce using rule 33 (factor -> STRING .)
+    GT              reduce using rule 33 (factor -> STRING .)
+    LTE             reduce using rule 33 (factor -> STRING .)
+    GTE             reduce using rule 33 (factor -> STRING .)
+    NOT             reduce using rule 33 (factor -> STRING .)
+    PRINT           reduce using rule 33 (factor -> STRING .)
+    ID              reduce using rule 33 (factor -> STRING .)
+    IF              reduce using rule 33 (factor -> STRING .)
+    WHILE           reduce using rule 33 (factor -> STRING .)
+    FOR             reduce using rule 33 (factor -> STRING .)
+    $end            reduce using rule 33 (factor -> STRING .)
+    RBRACE          reduce using rule 33 (factor -> STRING .)
+    COMMA           reduce using rule 33 (factor -> STRING .)
+    RBRACKET        reduce using rule 33 (factor -> STRING .)
+    LBRACE          reduce using rule 33 (factor -> STRING .)
+    RPAREN          reduce using rule 33 (factor -> STRING .)
 
 
 state 21
 
-    (34) addingOperator -> MINUS .
+    (34) factor -> LBRACKET . elements RBRACKET
+    (35) factor -> LBRACKET . RBRACKET
+    (3) elements -> . expression
+    (4) elements -> . expression COMMA elements
+    (29) expression -> . term
+    (31) term -> . factor
+    (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    ID              reduce using rule 34 (addingOperator -> MINUS .)
-    STRING          reduce using rule 34 (addingOperator -> MINUS .)
-    LBRACKET        reduce using rule 34 (addingOperator -> MINUS .)
-    INPUT           reduce using rule 34 (addingOperator -> MINUS .)
-    NUMBER          reduce using rule 34 (addingOperator -> MINUS .)
-    FALSE           reduce using rule 34 (addingOperator -> MINUS .)
-    TRUE            reduce using rule 34 (addingOperator -> MINUS .)
-    LPAREN          reduce using rule 34 (addingOperator -> MINUS .)
+    RBRACKET        shift and go to state 44
+    ID              shift and go to state 19
+    STRING          shift and go to state 20
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
+    elements                       shift and go to state 43
+    expression                     shift and go to state 45
+    term                           shift and go to state 17
+    factor                         shift and go to state 18
 
 state 22
 
-    (30) factor -> ID . DOT ISALPHA LPAREN RPAREN
-    (39) factor -> ID .
+    (36) factor -> INPUT . LPAREN STRING RPAREN
 
-    DOT             shift and go to state 51
-    TIMES           reduce using rule 39 (factor -> ID .)
-    DIVIDE          reduce using rule 39 (factor -> ID .)
-    AND             reduce using rule 39 (factor -> ID .)
-    EQUALV          reduce using rule 39 (factor -> ID .)
-    NOTEQUALV       reduce using rule 39 (factor -> ID .)
-    LT              reduce using rule 39 (factor -> ID .)
-    GT              reduce using rule 39 (factor -> ID .)
-    LTE             reduce using rule 39 (factor -> ID .)
-    GTE             reduce using rule 39 (factor -> ID .)
-    NOT             reduce using rule 39 (factor -> ID .)
-    PLUS            reduce using rule 39 (factor -> ID .)
-    MINUS           reduce using rule 39 (factor -> ID .)
-    RPAREN          reduce using rule 39 (factor -> ID .)
-    COMMA           reduce using rule 39 (factor -> ID .)
-    PRINT           reduce using rule 39 (factor -> ID .)
-    ID              reduce using rule 39 (factor -> ID .)
-    IF              reduce using rule 39 (factor -> ID .)
-    WHILE           reduce using rule 39 (factor -> ID .)
-    FOR             reduce using rule 39 (factor -> ID .)
-    $end            reduce using rule 39 (factor -> ID .)
-    RBRACE          reduce using rule 39 (factor -> ID .)
-    RBRACKET        reduce using rule 39 (factor -> ID .)
-    LBRACE          reduce using rule 39 (factor -> ID .)
+    LPAREN          shift and go to state 46
 
 
 state 23
 
-    (47) factor -> LPAREN . expression RPAREN
-    (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
-    (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (37) factor -> NUMBER .
 
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    AND             reduce using rule 37 (factor -> NUMBER .)
+    EQUALV          reduce using rule 37 (factor -> NUMBER .)
+    NOTEQUALV       reduce using rule 37 (factor -> NUMBER .)
+    LT              reduce using rule 37 (factor -> NUMBER .)
+    GT              reduce using rule 37 (factor -> NUMBER .)
+    LTE             reduce using rule 37 (factor -> NUMBER .)
+    GTE             reduce using rule 37 (factor -> NUMBER .)
+    NOT             reduce using rule 37 (factor -> NUMBER .)
+    RPAREN          reduce using rule 37 (factor -> NUMBER .)
+    COMMA           reduce using rule 37 (factor -> NUMBER .)
+    PRINT           reduce using rule 37 (factor -> NUMBER .)
+    ID              reduce using rule 37 (factor -> NUMBER .)
+    IF              reduce using rule 37 (factor -> NUMBER .)
+    WHILE           reduce using rule 37 (factor -> NUMBER .)
+    FOR             reduce using rule 37 (factor -> NUMBER .)
+    $end            reduce using rule 37 (factor -> NUMBER .)
+    RBRACE          reduce using rule 37 (factor -> NUMBER .)
+    RBRACKET        reduce using rule 37 (factor -> NUMBER .)
+    LBRACE          reduce using rule 37 (factor -> NUMBER .)
 
-    expression                     shift and go to state 52
-    term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
 
 state 24
 
-    (40) factor -> STRING .
+    (38) factor -> FALSE .
 
-    TIMES           reduce using rule 40 (factor -> STRING .)
-    DIVIDE          reduce using rule 40 (factor -> STRING .)
-    AND             reduce using rule 40 (factor -> STRING .)
-    EQUALV          reduce using rule 40 (factor -> STRING .)
-    NOTEQUALV       reduce using rule 40 (factor -> STRING .)
-    LT              reduce using rule 40 (factor -> STRING .)
-    GT              reduce using rule 40 (factor -> STRING .)
-    LTE             reduce using rule 40 (factor -> STRING .)
-    GTE             reduce using rule 40 (factor -> STRING .)
-    NOT             reduce using rule 40 (factor -> STRING .)
-    PLUS            reduce using rule 40 (factor -> STRING .)
-    MINUS           reduce using rule 40 (factor -> STRING .)
-    PRINT           reduce using rule 40 (factor -> STRING .)
-    ID              reduce using rule 40 (factor -> STRING .)
-    IF              reduce using rule 40 (factor -> STRING .)
-    WHILE           reduce using rule 40 (factor -> STRING .)
-    FOR             reduce using rule 40 (factor -> STRING .)
-    $end            reduce using rule 40 (factor -> STRING .)
-    RBRACE          reduce using rule 40 (factor -> STRING .)
-    RPAREN          reduce using rule 40 (factor -> STRING .)
-    COMMA           reduce using rule 40 (factor -> STRING .)
-    RBRACKET        reduce using rule 40 (factor -> STRING .)
-    LBRACE          reduce using rule 40 (factor -> STRING .)
+    AND             reduce using rule 38 (factor -> FALSE .)
+    EQUALV          reduce using rule 38 (factor -> FALSE .)
+    NOTEQUALV       reduce using rule 38 (factor -> FALSE .)
+    LT              reduce using rule 38 (factor -> FALSE .)
+    GT              reduce using rule 38 (factor -> FALSE .)
+    LTE             reduce using rule 38 (factor -> FALSE .)
+    GTE             reduce using rule 38 (factor -> FALSE .)
+    NOT             reduce using rule 38 (factor -> FALSE .)
+    RPAREN          reduce using rule 38 (factor -> FALSE .)
+    COMMA           reduce using rule 38 (factor -> FALSE .)
+    PRINT           reduce using rule 38 (factor -> FALSE .)
+    ID              reduce using rule 38 (factor -> FALSE .)
+    IF              reduce using rule 38 (factor -> FALSE .)
+    WHILE           reduce using rule 38 (factor -> FALSE .)
+    FOR             reduce using rule 38 (factor -> FALSE .)
+    $end            reduce using rule 38 (factor -> FALSE .)
+    RBRACE          reduce using rule 38 (factor -> FALSE .)
+    RBRACKET        reduce using rule 38 (factor -> FALSE .)
+    LBRACE          reduce using rule 38 (factor -> FALSE .)
 
 
 state 25
 
-    (41) factor -> LBRACKET . elements RBRACKET
-    (42) factor -> LBRACKET . RBRACKET
-    (3) elements -> . expression
-    (4) elements -> . expression COMMA elements
-    (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
-    (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (39) factor -> TRUE .
 
-    RBRACKET        shift and go to state 54
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    AND             reduce using rule 39 (factor -> TRUE .)
+    EQUALV          reduce using rule 39 (factor -> TRUE .)
+    NOTEQUALV       reduce using rule 39 (factor -> TRUE .)
+    LT              reduce using rule 39 (factor -> TRUE .)
+    GT              reduce using rule 39 (factor -> TRUE .)
+    LTE             reduce using rule 39 (factor -> TRUE .)
+    GTE             reduce using rule 39 (factor -> TRUE .)
+    NOT             reduce using rule 39 (factor -> TRUE .)
+    RPAREN          reduce using rule 39 (factor -> TRUE .)
+    COMMA           reduce using rule 39 (factor -> TRUE .)
+    PRINT           reduce using rule 39 (factor -> TRUE .)
+    ID              reduce using rule 39 (factor -> TRUE .)
+    IF              reduce using rule 39 (factor -> TRUE .)
+    WHILE           reduce using rule 39 (factor -> TRUE .)
+    FOR             reduce using rule 39 (factor -> TRUE .)
+    $end            reduce using rule 39 (factor -> TRUE .)
+    RBRACE          reduce using rule 39 (factor -> TRUE .)
+    RBRACKET        reduce using rule 39 (factor -> TRUE .)
+    LBRACE          reduce using rule 39 (factor -> TRUE .)
 
-    elements                       shift and go to state 53
-    expression                     shift and go to state 55
-    term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
 
 state 26
 
-    (43) factor -> INPUT . LPAREN STRING RPAREN
+    (11) statement -> WHILE condition . LBRACE statementList RBRACE
 
-    LPAREN          shift and go to state 56
+    LBRACE          shift and go to state 47
 
 
 state 27
 
-    (44) factor -> NUMBER .
+    (12) statement -> FOR ID . IN ID LBRACE statementList RBRACE
 
-    TIMES           reduce using rule 44 (factor -> NUMBER .)
-    DIVIDE          reduce using rule 44 (factor -> NUMBER .)
-    AND             reduce using rule 44 (factor -> NUMBER .)
-    EQUALV          reduce using rule 44 (factor -> NUMBER .)
-    NOTEQUALV       reduce using rule 44 (factor -> NUMBER .)
-    LT              reduce using rule 44 (factor -> NUMBER .)
-    GT              reduce using rule 44 (factor -> NUMBER .)
-    LTE             reduce using rule 44 (factor -> NUMBER .)
-    GTE             reduce using rule 44 (factor -> NUMBER .)
-    NOT             reduce using rule 44 (factor -> NUMBER .)
-    PLUS            reduce using rule 44 (factor -> NUMBER .)
-    MINUS           reduce using rule 44 (factor -> NUMBER .)
-    RPAREN          reduce using rule 44 (factor -> NUMBER .)
-    COMMA           reduce using rule 44 (factor -> NUMBER .)
-    PRINT           reduce using rule 44 (factor -> NUMBER .)
-    ID              reduce using rule 44 (factor -> NUMBER .)
-    IF              reduce using rule 44 (factor -> NUMBER .)
-    WHILE           reduce using rule 44 (factor -> NUMBER .)
-    FOR             reduce using rule 44 (factor -> NUMBER .)
-    $end            reduce using rule 44 (factor -> NUMBER .)
-    RBRACE          reduce using rule 44 (factor -> NUMBER .)
-    RBRACKET        reduce using rule 44 (factor -> NUMBER .)
-    LBRACE          reduce using rule 44 (factor -> NUMBER .)
+    IN              shift and go to state 48
 
 
 state 28
 
-    (45) factor -> FALSE .
+    (5) statement -> PRINT LPAREN STRING . RPAREN
+    (33) factor -> STRING .
 
-    TIMES           reduce using rule 45 (factor -> FALSE .)
-    DIVIDE          reduce using rule 45 (factor -> FALSE .)
-    AND             reduce using rule 45 (factor -> FALSE .)
-    EQUALV          reduce using rule 45 (factor -> FALSE .)
-    NOTEQUALV       reduce using rule 45 (factor -> FALSE .)
-    LT              reduce using rule 45 (factor -> FALSE .)
-    GT              reduce using rule 45 (factor -> FALSE .)
-    LTE             reduce using rule 45 (factor -> FALSE .)
-    GTE             reduce using rule 45 (factor -> FALSE .)
-    NOT             reduce using rule 45 (factor -> FALSE .)
-    PLUS            reduce using rule 45 (factor -> FALSE .)
-    MINUS           reduce using rule 45 (factor -> FALSE .)
-    RPAREN          reduce using rule 45 (factor -> FALSE .)
-    COMMA           reduce using rule 45 (factor -> FALSE .)
-    PRINT           reduce using rule 45 (factor -> FALSE .)
-    ID              reduce using rule 45 (factor -> FALSE .)
-    IF              reduce using rule 45 (factor -> FALSE .)
-    WHILE           reduce using rule 45 (factor -> FALSE .)
-    FOR             reduce using rule 45 (factor -> FALSE .)
-    $end            reduce using rule 45 (factor -> FALSE .)
-    RBRACE          reduce using rule 45 (factor -> FALSE .)
-    RBRACKET        reduce using rule 45 (factor -> FALSE .)
-    LBRACE          reduce using rule 45 (factor -> FALSE .)
+  ! shift/reduce conflict for RPAREN resolved as shift
+    RPAREN          shift and go to state 49
+    COMMA           reduce using rule 33 (factor -> STRING .)
+
+  ! RPAREN          [ reduce using rule 33 (factor -> STRING .) ]
 
 
 state 29
 
-    (46) factor -> TRUE .
+    (6) statement -> PRINT LPAREN expression . RPAREN
+    (7) statement -> PRINT LPAREN expression . COMMA STRING COMMA expression RPAREN
 
-    TIMES           reduce using rule 46 (factor -> TRUE .)
-    DIVIDE          reduce using rule 46 (factor -> TRUE .)
-    AND             reduce using rule 46 (factor -> TRUE .)
-    EQUALV          reduce using rule 46 (factor -> TRUE .)
-    NOTEQUALV       reduce using rule 46 (factor -> TRUE .)
-    LT              reduce using rule 46 (factor -> TRUE .)
-    GT              reduce using rule 46 (factor -> TRUE .)
-    LTE             reduce using rule 46 (factor -> TRUE .)
-    GTE             reduce using rule 46 (factor -> TRUE .)
-    NOT             reduce using rule 46 (factor -> TRUE .)
-    PLUS            reduce using rule 46 (factor -> TRUE .)
-    MINUS           reduce using rule 46 (factor -> TRUE .)
-    RPAREN          reduce using rule 46 (factor -> TRUE .)
-    COMMA           reduce using rule 46 (factor -> TRUE .)
-    PRINT           reduce using rule 46 (factor -> TRUE .)
-    ID              reduce using rule 46 (factor -> TRUE .)
-    IF              reduce using rule 46 (factor -> TRUE .)
-    WHILE           reduce using rule 46 (factor -> TRUE .)
-    FOR             reduce using rule 46 (factor -> TRUE .)
-    $end            reduce using rule 46 (factor -> TRUE .)
-    RBRACE          reduce using rule 46 (factor -> TRUE .)
-    RBRACKET        reduce using rule 46 (factor -> TRUE .)
-    LBRACE          reduce using rule 46 (factor -> TRUE .)
+    RPAREN          shift and go to state 50
+    COMMA           shift and go to state 51
 
 
 state 30
 
-    (11) statement -> WHILE condition . LBRACE statementList RBRACE
+    (8) statement -> ID DOT APPEND . LPAREN expression RPAREN
 
-    LBRACE          shift and go to state 57
+    LPAREN          shift and go to state 52
 
 
 state 31
 
-    (12) statement -> FOR ID . IN ID LBRACE statementList RBRACE
-
-    IN              shift and go to state 58
-
-
-state 32
-
-    (5) statement -> PRINT LPAREN STRING . RPAREN
-    (40) factor -> STRING .
-
-  ! shift/reduce conflict for RPAREN resolved as shift
-    RPAREN          shift and go to state 59
-    TIMES           reduce using rule 40 (factor -> STRING .)
-    DIVIDE          reduce using rule 40 (factor -> STRING .)
-    COMMA           reduce using rule 40 (factor -> STRING .)
-    PLUS            reduce using rule 40 (factor -> STRING .)
-    MINUS           reduce using rule 40 (factor -> STRING .)
-
-  ! RPAREN          [ reduce using rule 40 (factor -> STRING .) ]
-
-
-state 33
-
-    (6) statement -> PRINT LPAREN expression . RPAREN
-    (7) statement -> PRINT LPAREN expression . COMMA STRING COMMA expression RPAREN
-    (32) expression -> expression . addingOperator term
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
-
-    RPAREN          shift and go to state 60
-    COMMA           shift and go to state 61
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-
-    addingOperator                 shift and go to state 38
-
-state 34
-
-    (8) statement -> ID DOT APPEND . LPAREN expression RPAREN
-
-    LPAREN          shift and go to state 62
-
-
-state 35
-
     (9) statement -> ID EQUALS expression .
-    (32) expression -> expression . addingOperator term
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
 
     PRINT           reduce using rule 9 (statement -> ID EQUALS expression .)
     ID              reduce using rule 9 (statement -> ID EQUALS expression .)
@@ -904,12 +676,9 @@ state 35
     FOR             reduce using rule 9 (statement -> ID EQUALS expression .)
     $end            reduce using rule 9 (statement -> ID EQUALS expression .)
     RBRACE          reduce using rule 9 (statement -> ID EQUALS expression .)
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
 
-    addingOperator                 shift and go to state 38
 
-state 36
+state 32
 
     (10) statement -> IF condition LBRACE . statementList RBRACE statementIF
     (17) statementList -> . statement
@@ -923,7 +692,7 @@ state 36
     (11) statement -> . WHILE condition LBRACE statementList RBRACE
     (12) statement -> . FOR ID IN ID LBRACE statementList RBRACE
     (13) statement -> . empty
-    (48) empty -> .
+    (40) empty -> .
 
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for ID resolved as shift
@@ -935,90 +704,50 @@ state 36
     IF              shift and go to state 7
     WHILE           shift and go to state 8
     FOR             shift and go to state 9
-    RBRACE          reduce using rule 48 (empty -> .)
+    RBRACE          reduce using rule 40 (empty -> .)
 
-  ! PRINT           [ reduce using rule 48 (empty -> .) ]
-  ! ID              [ reduce using rule 48 (empty -> .) ]
-  ! IF              [ reduce using rule 48 (empty -> .) ]
-  ! WHILE           [ reduce using rule 48 (empty -> .) ]
-  ! FOR             [ reduce using rule 48 (empty -> .) ]
+  ! PRINT           [ reduce using rule 40 (empty -> .) ]
+  ! ID              [ reduce using rule 40 (empty -> .) ]
+  ! IF              [ reduce using rule 40 (empty -> .) ]
+  ! WHILE           [ reduce using rule 40 (empty -> .) ]
+  ! FOR             [ reduce using rule 40 (empty -> .) ]
 
-    statementList                  shift and go to state 63
+    statementList                  shift and go to state 53
     statement                      shift and go to state 4
     empty                          shift and go to state 10
 
-state 37
+state 33
 
     (19) condition -> expression relation . expression
     (20) condition -> expression relation . expression relation expression relation expression
     (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
+    (31) term -> . factor
     (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    ID              shift and go to state 19
+    STRING          shift and go to state 20
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
-    expression                     shift and go to state 64
+    expression                     shift and go to state 54
     term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
+    factor                         shift and go to state 18
 
-state 38
-
-    (32) expression -> expression addingOperator . term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
-
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
-
-    term                           shift and go to state 65
-    factor                         shift and go to state 19
-
-state 39
+state 34
 
     (21) relation -> AND .
 
-    PLUS            reduce using rule 21 (relation -> AND .)
-    MINUS           reduce using rule 21 (relation -> AND .)
     ID              reduce using rule 21 (relation -> AND .)
     STRING          reduce using rule 21 (relation -> AND .)
     LBRACKET        reduce using rule 21 (relation -> AND .)
@@ -1026,15 +755,12 @@ state 39
     NUMBER          reduce using rule 21 (relation -> AND .)
     FALSE           reduce using rule 21 (relation -> AND .)
     TRUE            reduce using rule 21 (relation -> AND .)
-    LPAREN          reduce using rule 21 (relation -> AND .)
 
 
-state 40
+state 35
 
     (22) relation -> EQUALV .
 
-    PLUS            reduce using rule 22 (relation -> EQUALV .)
-    MINUS           reduce using rule 22 (relation -> EQUALV .)
     ID              reduce using rule 22 (relation -> EQUALV .)
     STRING          reduce using rule 22 (relation -> EQUALV .)
     LBRACKET        reduce using rule 22 (relation -> EQUALV .)
@@ -1042,15 +768,12 @@ state 40
     NUMBER          reduce using rule 22 (relation -> EQUALV .)
     FALSE           reduce using rule 22 (relation -> EQUALV .)
     TRUE            reduce using rule 22 (relation -> EQUALV .)
-    LPAREN          reduce using rule 22 (relation -> EQUALV .)
 
 
-state 41
+state 36
 
     (23) relation -> NOTEQUALV .
 
-    PLUS            reduce using rule 23 (relation -> NOTEQUALV .)
-    MINUS           reduce using rule 23 (relation -> NOTEQUALV .)
     ID              reduce using rule 23 (relation -> NOTEQUALV .)
     STRING          reduce using rule 23 (relation -> NOTEQUALV .)
     LBRACKET        reduce using rule 23 (relation -> NOTEQUALV .)
@@ -1058,15 +781,12 @@ state 41
     NUMBER          reduce using rule 23 (relation -> NOTEQUALV .)
     FALSE           reduce using rule 23 (relation -> NOTEQUALV .)
     TRUE            reduce using rule 23 (relation -> NOTEQUALV .)
-    LPAREN          reduce using rule 23 (relation -> NOTEQUALV .)
 
 
-state 42
+state 37
 
     (24) relation -> LT .
 
-    PLUS            reduce using rule 24 (relation -> LT .)
-    MINUS           reduce using rule 24 (relation -> LT .)
     ID              reduce using rule 24 (relation -> LT .)
     STRING          reduce using rule 24 (relation -> LT .)
     LBRACKET        reduce using rule 24 (relation -> LT .)
@@ -1074,15 +794,12 @@ state 42
     NUMBER          reduce using rule 24 (relation -> LT .)
     FALSE           reduce using rule 24 (relation -> LT .)
     TRUE            reduce using rule 24 (relation -> LT .)
-    LPAREN          reduce using rule 24 (relation -> LT .)
 
 
-state 43
+state 38
 
     (25) relation -> GT .
 
-    PLUS            reduce using rule 25 (relation -> GT .)
-    MINUS           reduce using rule 25 (relation -> GT .)
     ID              reduce using rule 25 (relation -> GT .)
     STRING          reduce using rule 25 (relation -> GT .)
     LBRACKET        reduce using rule 25 (relation -> GT .)
@@ -1090,15 +807,12 @@ state 43
     NUMBER          reduce using rule 25 (relation -> GT .)
     FALSE           reduce using rule 25 (relation -> GT .)
     TRUE            reduce using rule 25 (relation -> GT .)
-    LPAREN          reduce using rule 25 (relation -> GT .)
 
 
-state 44
+state 39
 
     (26) relation -> LTE .
 
-    PLUS            reduce using rule 26 (relation -> LTE .)
-    MINUS           reduce using rule 26 (relation -> LTE .)
     ID              reduce using rule 26 (relation -> LTE .)
     STRING          reduce using rule 26 (relation -> LTE .)
     LBRACKET        reduce using rule 26 (relation -> LTE .)
@@ -1106,15 +820,12 @@ state 44
     NUMBER          reduce using rule 26 (relation -> LTE .)
     FALSE           reduce using rule 26 (relation -> LTE .)
     TRUE            reduce using rule 26 (relation -> LTE .)
-    LPAREN          reduce using rule 26 (relation -> LTE .)
 
 
-state 45
+state 40
 
     (27) relation -> GTE .
 
-    PLUS            reduce using rule 27 (relation -> GTE .)
-    MINUS           reduce using rule 27 (relation -> GTE .)
     ID              reduce using rule 27 (relation -> GTE .)
     STRING          reduce using rule 27 (relation -> GTE .)
     LBRACKET        reduce using rule 27 (relation -> GTE .)
@@ -1122,181 +833,71 @@ state 45
     NUMBER          reduce using rule 27 (relation -> GTE .)
     FALSE           reduce using rule 27 (relation -> GTE .)
     TRUE            reduce using rule 27 (relation -> GTE .)
-    LPAREN          reduce using rule 27 (relation -> GTE .)
+
+
+state 41
+
+    (28) relation -> NOT . IN
+
+    IN              shift and go to state 55
+
+
+state 42
+
+    (30) factor -> ID DOT . ISALPHA LPAREN RPAREN
+
+    ISALPHA         shift and go to state 56
+
+
+state 43
+
+    (34) factor -> LBRACKET elements . RBRACKET
+
+    RBRACKET        shift and go to state 57
+
+
+state 44
+
+    (35) factor -> LBRACKET RBRACKET .
+
+    AND             reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    EQUALV          reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    NOTEQUALV       reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    LT              reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    GT              reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    LTE             reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    GTE             reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    NOT             reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    RPAREN          reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    COMMA           reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    PRINT           reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    ID              reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    IF              reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    WHILE           reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    FOR             reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    $end            reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    RBRACE          reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    RBRACKET        reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+    LBRACE          reduce using rule 35 (factor -> LBRACKET RBRACKET .)
+
+
+state 45
+
+    (3) elements -> expression .
+    (4) elements -> expression . COMMA elements
+
+    RBRACKET        reduce using rule 3 (elements -> expression .)
+    COMMA           shift and go to state 58
 
 
 state 46
 
-    (28) relation -> NOT . IN
+    (36) factor -> INPUT LPAREN . STRING RPAREN
 
-    IN              shift and go to state 66
+    STRING          shift and go to state 59
 
 
 state 47
-
-    (36) term -> term multiplyingOperator . factor
-    (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
-
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
-
-    factor                         shift and go to state 67
-
-state 48
-
-    (37) multiplyingOperator -> TIMES .
-
-    ID              reduce using rule 37 (multiplyingOperator -> TIMES .)
-    STRING          reduce using rule 37 (multiplyingOperator -> TIMES .)
-    LBRACKET        reduce using rule 37 (multiplyingOperator -> TIMES .)
-    INPUT           reduce using rule 37 (multiplyingOperator -> TIMES .)
-    NUMBER          reduce using rule 37 (multiplyingOperator -> TIMES .)
-    FALSE           reduce using rule 37 (multiplyingOperator -> TIMES .)
-    TRUE            reduce using rule 37 (multiplyingOperator -> TIMES .)
-    LPAREN          reduce using rule 37 (multiplyingOperator -> TIMES .)
-
-
-state 49
-
-    (38) multiplyingOperator -> DIVIDE .
-
-    ID              reduce using rule 38 (multiplyingOperator -> DIVIDE .)
-    STRING          reduce using rule 38 (multiplyingOperator -> DIVIDE .)
-    LBRACKET        reduce using rule 38 (multiplyingOperator -> DIVIDE .)
-    INPUT           reduce using rule 38 (multiplyingOperator -> DIVIDE .)
-    NUMBER          reduce using rule 38 (multiplyingOperator -> DIVIDE .)
-    FALSE           reduce using rule 38 (multiplyingOperator -> DIVIDE .)
-    TRUE            reduce using rule 38 (multiplyingOperator -> DIVIDE .)
-    LPAREN          reduce using rule 38 (multiplyingOperator -> DIVIDE .)
-
-
-state 50
-
-    (31) expression -> addingOperator term .
-    (36) term -> term . multiplyingOperator factor
-    (37) multiplyingOperator -> . TIMES
-    (38) multiplyingOperator -> . DIVIDE
-
-    AND             reduce using rule 31 (expression -> addingOperator term .)
-    EQUALV          reduce using rule 31 (expression -> addingOperator term .)
-    NOTEQUALV       reduce using rule 31 (expression -> addingOperator term .)
-    LT              reduce using rule 31 (expression -> addingOperator term .)
-    GT              reduce using rule 31 (expression -> addingOperator term .)
-    LTE             reduce using rule 31 (expression -> addingOperator term .)
-    GTE             reduce using rule 31 (expression -> addingOperator term .)
-    NOT             reduce using rule 31 (expression -> addingOperator term .)
-    PLUS            reduce using rule 31 (expression -> addingOperator term .)
-    MINUS           reduce using rule 31 (expression -> addingOperator term .)
-    RPAREN          reduce using rule 31 (expression -> addingOperator term .)
-    COMMA           reduce using rule 31 (expression -> addingOperator term .)
-    PRINT           reduce using rule 31 (expression -> addingOperator term .)
-    ID              reduce using rule 31 (expression -> addingOperator term .)
-    IF              reduce using rule 31 (expression -> addingOperator term .)
-    WHILE           reduce using rule 31 (expression -> addingOperator term .)
-    FOR             reduce using rule 31 (expression -> addingOperator term .)
-    $end            reduce using rule 31 (expression -> addingOperator term .)
-    RBRACE          reduce using rule 31 (expression -> addingOperator term .)
-    RBRACKET        reduce using rule 31 (expression -> addingOperator term .)
-    LBRACE          reduce using rule 31 (expression -> addingOperator term .)
-    TIMES           shift and go to state 48
-    DIVIDE          shift and go to state 49
-
-    multiplyingOperator            shift and go to state 47
-
-state 51
-
-    (30) factor -> ID DOT . ISALPHA LPAREN RPAREN
-
-    ISALPHA         shift and go to state 68
-
-
-state 52
-
-    (47) factor -> LPAREN expression . RPAREN
-    (32) expression -> expression . addingOperator term
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
-
-    RPAREN          shift and go to state 69
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-
-    addingOperator                 shift and go to state 38
-
-state 53
-
-    (41) factor -> LBRACKET elements . RBRACKET
-
-    RBRACKET        shift and go to state 70
-
-
-state 54
-
-    (42) factor -> LBRACKET RBRACKET .
-
-    TIMES           reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    DIVIDE          reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    AND             reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    EQUALV          reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    NOTEQUALV       reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    LT              reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    GT              reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    LTE             reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    GTE             reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    NOT             reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    PLUS            reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    MINUS           reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    RPAREN          reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    COMMA           reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    PRINT           reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    ID              reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    IF              reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    WHILE           reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    FOR             reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    $end            reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    RBRACE          reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    RBRACKET        reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-    LBRACE          reduce using rule 42 (factor -> LBRACKET RBRACKET .)
-
-
-state 55
-
-    (3) elements -> expression .
-    (4) elements -> expression . COMMA elements
-    (32) expression -> expression . addingOperator term
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
-
-    RBRACKET        reduce using rule 3 (elements -> expression .)
-    COMMA           shift and go to state 71
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-
-    addingOperator                 shift and go to state 38
-
-state 56
-
-    (43) factor -> INPUT LPAREN . STRING RPAREN
-
-    STRING          shift and go to state 72
-
-
-state 57
 
     (11) statement -> WHILE condition LBRACE . statementList RBRACE
     (17) statementList -> . statement
@@ -1310,7 +911,7 @@ state 57
     (11) statement -> . WHILE condition LBRACE statementList RBRACE
     (12) statement -> . FOR ID IN ID LBRACE statementList RBRACE
     (13) statement -> . empty
-    (48) empty -> .
+    (40) empty -> .
 
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for ID resolved as shift
@@ -1322,26 +923,26 @@ state 57
     IF              shift and go to state 7
     WHILE           shift and go to state 8
     FOR             shift and go to state 9
-    RBRACE          reduce using rule 48 (empty -> .)
+    RBRACE          reduce using rule 40 (empty -> .)
 
-  ! PRINT           [ reduce using rule 48 (empty -> .) ]
-  ! ID              [ reduce using rule 48 (empty -> .) ]
-  ! IF              [ reduce using rule 48 (empty -> .) ]
-  ! WHILE           [ reduce using rule 48 (empty -> .) ]
-  ! FOR             [ reduce using rule 48 (empty -> .) ]
+  ! PRINT           [ reduce using rule 40 (empty -> .) ]
+  ! ID              [ reduce using rule 40 (empty -> .) ]
+  ! IF              [ reduce using rule 40 (empty -> .) ]
+  ! WHILE           [ reduce using rule 40 (empty -> .) ]
+  ! FOR             [ reduce using rule 40 (empty -> .) ]
 
-    statementList                  shift and go to state 73
+    statementList                  shift and go to state 60
     statement                      shift and go to state 4
     empty                          shift and go to state 10
 
-state 58
+state 48
 
     (12) statement -> FOR ID IN . ID LBRACE statementList RBRACE
 
-    ID              shift and go to state 74
+    ID              shift and go to state 61
 
 
-state 59
+state 49
 
     (5) statement -> PRINT LPAREN STRING RPAREN .
 
@@ -1354,7 +955,7 @@ state 59
     RBRACE          reduce using rule 5 (statement -> PRINT LPAREN STRING RPAREN .)
 
 
-state 60
+state 50
 
     (6) statement -> PRINT LPAREN expression RPAREN .
 
@@ -1367,62 +968,51 @@ state 60
     RBRACE          reduce using rule 6 (statement -> PRINT LPAREN expression RPAREN .)
 
 
-state 61
+state 51
 
     (7) statement -> PRINT LPAREN expression COMMA . STRING COMMA expression RPAREN
 
-    STRING          shift and go to state 75
+    STRING          shift and go to state 62
 
 
-state 62
+state 52
 
     (8) statement -> ID DOT APPEND LPAREN . expression RPAREN
     (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
+    (31) term -> . factor
     (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    ID              shift and go to state 19
+    STRING          shift and go to state 20
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
-    expression                     shift and go to state 76
+    expression                     shift and go to state 63
     term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
+    factor                         shift and go to state 18
 
-state 63
+state 53
 
     (10) statement -> IF condition LBRACE statementList . RBRACE statementIF
 
-    RBRACE          shift and go to state 77
+    RBRACE          shift and go to state 64
 
 
-state 64
+state 54
 
     (19) condition -> expression relation expression .
     (20) condition -> expression relation expression . relation expression relation expression
-    (32) expression -> expression . addingOperator term
     (21) relation -> . AND
     (22) relation -> . EQUALV
     (23) relation -> . NOTEQUALV
@@ -1431,63 +1021,23 @@ state 64
     (26) relation -> . LTE
     (27) relation -> . GTE
     (28) relation -> . NOT IN
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
 
     LBRACE          reduce using rule 19 (condition -> expression relation expression .)
-    AND             shift and go to state 39
-    EQUALV          shift and go to state 40
-    NOTEQUALV       shift and go to state 41
-    LT              shift and go to state 42
-    GT              shift and go to state 43
-    LTE             shift and go to state 44
-    GTE             shift and go to state 45
-    NOT             shift and go to state 46
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
+    AND             shift and go to state 34
+    EQUALV          shift and go to state 35
+    NOTEQUALV       shift and go to state 36
+    LT              shift and go to state 37
+    GT              shift and go to state 38
+    LTE             shift and go to state 39
+    GTE             shift and go to state 40
+    NOT             shift and go to state 41
 
-    relation                       shift and go to state 78
-    addingOperator                 shift and go to state 38
+    relation                       shift and go to state 65
 
-state 65
-
-    (32) expression -> expression addingOperator term .
-    (36) term -> term . multiplyingOperator factor
-    (37) multiplyingOperator -> . TIMES
-    (38) multiplyingOperator -> . DIVIDE
-
-    AND             reduce using rule 32 (expression -> expression addingOperator term .)
-    EQUALV          reduce using rule 32 (expression -> expression addingOperator term .)
-    NOTEQUALV       reduce using rule 32 (expression -> expression addingOperator term .)
-    LT              reduce using rule 32 (expression -> expression addingOperator term .)
-    GT              reduce using rule 32 (expression -> expression addingOperator term .)
-    LTE             reduce using rule 32 (expression -> expression addingOperator term .)
-    GTE             reduce using rule 32 (expression -> expression addingOperator term .)
-    NOT             reduce using rule 32 (expression -> expression addingOperator term .)
-    PLUS            reduce using rule 32 (expression -> expression addingOperator term .)
-    MINUS           reduce using rule 32 (expression -> expression addingOperator term .)
-    RPAREN          reduce using rule 32 (expression -> expression addingOperator term .)
-    COMMA           reduce using rule 32 (expression -> expression addingOperator term .)
-    PRINT           reduce using rule 32 (expression -> expression addingOperator term .)
-    ID              reduce using rule 32 (expression -> expression addingOperator term .)
-    IF              reduce using rule 32 (expression -> expression addingOperator term .)
-    WHILE           reduce using rule 32 (expression -> expression addingOperator term .)
-    FOR             reduce using rule 32 (expression -> expression addingOperator term .)
-    $end            reduce using rule 32 (expression -> expression addingOperator term .)
-    RBRACE          reduce using rule 32 (expression -> expression addingOperator term .)
-    RBRACKET        reduce using rule 32 (expression -> expression addingOperator term .)
-    LBRACE          reduce using rule 32 (expression -> expression addingOperator term .)
-    TIMES           shift and go to state 48
-    DIVIDE          shift and go to state 49
-
-    multiplyingOperator            shift and go to state 47
-
-state 66
+state 55
 
     (28) relation -> NOT IN .
 
-    PLUS            reduce using rule 28 (relation -> NOT IN .)
-    MINUS           reduce using rule 28 (relation -> NOT IN .)
     ID              reduce using rule 28 (relation -> NOT IN .)
     STRING          reduce using rule 28 (relation -> NOT IN .)
     LBRACKET        reduce using rule 28 (relation -> NOT IN .)
@@ -1495,285 +1045,192 @@ state 66
     NUMBER          reduce using rule 28 (relation -> NOT IN .)
     FALSE           reduce using rule 28 (relation -> NOT IN .)
     TRUE            reduce using rule 28 (relation -> NOT IN .)
-    LPAREN          reduce using rule 28 (relation -> NOT IN .)
 
 
-state 67
-
-    (36) term -> term multiplyingOperator factor .
-
-    TIMES           reduce using rule 36 (term -> term multiplyingOperator factor .)
-    DIVIDE          reduce using rule 36 (term -> term multiplyingOperator factor .)
-    AND             reduce using rule 36 (term -> term multiplyingOperator factor .)
-    EQUALV          reduce using rule 36 (term -> term multiplyingOperator factor .)
-    NOTEQUALV       reduce using rule 36 (term -> term multiplyingOperator factor .)
-    LT              reduce using rule 36 (term -> term multiplyingOperator factor .)
-    GT              reduce using rule 36 (term -> term multiplyingOperator factor .)
-    LTE             reduce using rule 36 (term -> term multiplyingOperator factor .)
-    GTE             reduce using rule 36 (term -> term multiplyingOperator factor .)
-    NOT             reduce using rule 36 (term -> term multiplyingOperator factor .)
-    PLUS            reduce using rule 36 (term -> term multiplyingOperator factor .)
-    MINUS           reduce using rule 36 (term -> term multiplyingOperator factor .)
-    RPAREN          reduce using rule 36 (term -> term multiplyingOperator factor .)
-    COMMA           reduce using rule 36 (term -> term multiplyingOperator factor .)
-    PRINT           reduce using rule 36 (term -> term multiplyingOperator factor .)
-    ID              reduce using rule 36 (term -> term multiplyingOperator factor .)
-    IF              reduce using rule 36 (term -> term multiplyingOperator factor .)
-    WHILE           reduce using rule 36 (term -> term multiplyingOperator factor .)
-    FOR             reduce using rule 36 (term -> term multiplyingOperator factor .)
-    $end            reduce using rule 36 (term -> term multiplyingOperator factor .)
-    RBRACE          reduce using rule 36 (term -> term multiplyingOperator factor .)
-    RBRACKET        reduce using rule 36 (term -> term multiplyingOperator factor .)
-    LBRACE          reduce using rule 36 (term -> term multiplyingOperator factor .)
-
-
-state 68
+state 56
 
     (30) factor -> ID DOT ISALPHA . LPAREN RPAREN
 
-    LPAREN          shift and go to state 79
+    LPAREN          shift and go to state 66
 
 
-state 69
+state 57
 
-    (47) factor -> LPAREN expression RPAREN .
+    (34) factor -> LBRACKET elements RBRACKET .
 
-    TIMES           reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    AND             reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    EQUALV          reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    NOTEQUALV       reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    LT              reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    GT              reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    LTE             reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    GTE             reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    NOT             reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    PLUS            reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    MINUS           reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    COMMA           reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    PRINT           reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    ID              reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    IF              reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    WHILE           reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    FOR             reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    $end            reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    RBRACE          reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    RBRACKET        reduce using rule 47 (factor -> LPAREN expression RPAREN .)
-    LBRACE          reduce using rule 47 (factor -> LPAREN expression RPAREN .)
+    AND             reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    EQUALV          reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    NOTEQUALV       reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    LT              reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    GT              reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    LTE             reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    GTE             reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    NOT             reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    RPAREN          reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    COMMA           reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    PRINT           reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    ID              reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    IF              reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    WHILE           reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    FOR             reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    $end            reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    RBRACE          reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    RBRACKET        reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
+    LBRACE          reduce using rule 34 (factor -> LBRACKET elements RBRACKET .)
 
 
-state 70
-
-    (41) factor -> LBRACKET elements RBRACKET .
-
-    TIMES           reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    DIVIDE          reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    AND             reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    EQUALV          reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    NOTEQUALV       reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    LT              reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    GT              reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    LTE             reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    GTE             reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    NOT             reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    PLUS            reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    MINUS           reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    RPAREN          reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    COMMA           reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    PRINT           reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    ID              reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    IF              reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    WHILE           reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    FOR             reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    $end            reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    RBRACE          reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    RBRACKET        reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-    LBRACE          reduce using rule 41 (factor -> LBRACKET elements RBRACKET .)
-
-
-state 71
+state 58
 
     (4) elements -> expression COMMA . elements
     (3) elements -> . expression
     (4) elements -> . expression COMMA elements
     (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
+    (31) term -> . factor
     (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    ID              shift and go to state 19
+    STRING          shift and go to state 20
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
-    expression                     shift and go to state 55
-    elements                       shift and go to state 80
+    expression                     shift and go to state 45
+    elements                       shift and go to state 67
     term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
+    factor                         shift and go to state 18
 
-state 72
+state 59
 
-    (43) factor -> INPUT LPAREN STRING . RPAREN
+    (36) factor -> INPUT LPAREN STRING . RPAREN
 
-    RPAREN          shift and go to state 81
+    RPAREN          shift and go to state 68
 
 
-state 73
+state 60
 
     (11) statement -> WHILE condition LBRACE statementList . RBRACE
 
-    RBRACE          shift and go to state 82
+    RBRACE          shift and go to state 69
 
 
-state 74
+state 61
 
     (12) statement -> FOR ID IN ID . LBRACE statementList RBRACE
 
-    LBRACE          shift and go to state 83
+    LBRACE          shift and go to state 70
 
 
-state 75
+state 62
 
     (7) statement -> PRINT LPAREN expression COMMA STRING . COMMA expression RPAREN
 
-    COMMA           shift and go to state 84
+    COMMA           shift and go to state 71
 
 
-state 76
+state 63
 
     (8) statement -> ID DOT APPEND LPAREN expression . RPAREN
-    (32) expression -> expression . addingOperator term
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
 
-    RPAREN          shift and go to state 85
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
+    RPAREN          shift and go to state 72
 
-    addingOperator                 shift and go to state 38
 
-state 77
+state 64
 
     (10) statement -> IF condition LBRACE statementList RBRACE . statementIF
     (14) statementIF -> . ELSE LBRACE statementList RBRACE
     (15) statementIF -> . ELSE IF condition LBRACE statementList RBRACE statementIF
     (16) statementIF -> . empty
-    (48) empty -> .
+    (40) empty -> .
 
-    ELSE            shift and go to state 87
-    PRINT           reduce using rule 48 (empty -> .)
-    ID              reduce using rule 48 (empty -> .)
-    IF              reduce using rule 48 (empty -> .)
-    WHILE           reduce using rule 48 (empty -> .)
-    FOR             reduce using rule 48 (empty -> .)
-    $end            reduce using rule 48 (empty -> .)
-    RBRACE          reduce using rule 48 (empty -> .)
+    ELSE            shift and go to state 74
+    PRINT           reduce using rule 40 (empty -> .)
+    ID              reduce using rule 40 (empty -> .)
+    IF              reduce using rule 40 (empty -> .)
+    WHILE           reduce using rule 40 (empty -> .)
+    FOR             reduce using rule 40 (empty -> .)
+    $end            reduce using rule 40 (empty -> .)
+    RBRACE          reduce using rule 40 (empty -> .)
 
-    statementIF                    shift and go to state 86
-    empty                          shift and go to state 88
+    statementIF                    shift and go to state 73
+    empty                          shift and go to state 75
 
-state 78
+state 65
 
     (20) condition -> expression relation expression relation . expression relation expression
     (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
+    (31) term -> . factor
     (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    ID              shift and go to state 19
+    STRING          shift and go to state 20
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
-    expression                     shift and go to state 89
+    expression                     shift and go to state 76
     term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
+    factor                         shift and go to state 18
 
-state 79
+state 66
 
     (30) factor -> ID DOT ISALPHA LPAREN . RPAREN
 
-    RPAREN          shift and go to state 90
+    RPAREN          shift and go to state 77
 
 
-state 80
+state 67
 
     (4) elements -> expression COMMA elements .
 
     RBRACKET        reduce using rule 4 (elements -> expression COMMA elements .)
 
 
-state 81
+state 68
 
-    (43) factor -> INPUT LPAREN STRING RPAREN .
+    (36) factor -> INPUT LPAREN STRING RPAREN .
 
-    TIMES           reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    DIVIDE          reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    AND             reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    EQUALV          reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    NOTEQUALV       reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    LT              reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    GT              reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    LTE             reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    GTE             reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    NOT             reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    PLUS            reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    MINUS           reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    RPAREN          reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    COMMA           reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    PRINT           reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    ID              reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    IF              reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    WHILE           reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    FOR             reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    $end            reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    RBRACE          reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    RBRACKET        reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
-    LBRACE          reduce using rule 43 (factor -> INPUT LPAREN STRING RPAREN .)
+    AND             reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    EQUALV          reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    NOTEQUALV       reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    LT              reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    GT              reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    LTE             reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    GTE             reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    NOT             reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    RPAREN          reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    COMMA           reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    PRINT           reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    ID              reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    IF              reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    WHILE           reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    FOR             reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    $end            reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    RBRACE          reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    RBRACKET        reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
+    LBRACE          reduce using rule 36 (factor -> INPUT LPAREN STRING RPAREN .)
 
 
-state 82
+state 69
 
     (11) statement -> WHILE condition LBRACE statementList RBRACE .
 
@@ -1786,7 +1243,7 @@ state 82
     RBRACE          reduce using rule 11 (statement -> WHILE condition LBRACE statementList RBRACE .)
 
 
-state 83
+state 70
 
     (12) statement -> FOR ID IN ID LBRACE . statementList RBRACE
     (17) statementList -> . statement
@@ -1800,7 +1257,7 @@ state 83
     (11) statement -> . WHILE condition LBRACE statementList RBRACE
     (12) statement -> . FOR ID IN ID LBRACE statementList RBRACE
     (13) statement -> . empty
-    (48) empty -> .
+    (40) empty -> .
 
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for ID resolved as shift
@@ -1812,56 +1269,46 @@ state 83
     IF              shift and go to state 7
     WHILE           shift and go to state 8
     FOR             shift and go to state 9
-    RBRACE          reduce using rule 48 (empty -> .)
+    RBRACE          reduce using rule 40 (empty -> .)
 
-  ! PRINT           [ reduce using rule 48 (empty -> .) ]
-  ! ID              [ reduce using rule 48 (empty -> .) ]
-  ! IF              [ reduce using rule 48 (empty -> .) ]
-  ! WHILE           [ reduce using rule 48 (empty -> .) ]
-  ! FOR             [ reduce using rule 48 (empty -> .) ]
+  ! PRINT           [ reduce using rule 40 (empty -> .) ]
+  ! ID              [ reduce using rule 40 (empty -> .) ]
+  ! IF              [ reduce using rule 40 (empty -> .) ]
+  ! WHILE           [ reduce using rule 40 (empty -> .) ]
+  ! FOR             [ reduce using rule 40 (empty -> .) ]
 
-    statementList                  shift and go to state 91
+    statementList                  shift and go to state 78
     statement                      shift and go to state 4
     empty                          shift and go to state 10
 
-state 84
+state 71
 
     (7) statement -> PRINT LPAREN expression COMMA STRING COMMA . expression RPAREN
     (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
+    (31) term -> . factor
     (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    ID              shift and go to state 19
+    STRING          shift and go to state 20
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
-    expression                     shift and go to state 92
+    expression                     shift and go to state 79
     term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
+    factor                         shift and go to state 18
 
-state 85
+state 72
 
     (8) statement -> ID DOT APPEND LPAREN expression RPAREN .
 
@@ -1874,7 +1321,7 @@ state 85
     RBRACE          reduce using rule 8 (statement -> ID DOT APPEND LPAREN expression RPAREN .)
 
 
-state 86
+state 73
 
     (10) statement -> IF condition LBRACE statementList RBRACE statementIF .
 
@@ -1887,16 +1334,16 @@ state 86
     RBRACE          reduce using rule 10 (statement -> IF condition LBRACE statementList RBRACE statementIF .)
 
 
-state 87
+state 74
 
     (14) statementIF -> ELSE . LBRACE statementList RBRACE
     (15) statementIF -> ELSE . IF condition LBRACE statementList RBRACE statementIF
 
-    LBRACE          shift and go to state 93
-    IF              shift and go to state 94
+    LBRACE          shift and go to state 80
+    IF              shift and go to state 81
 
 
-state 88
+state 75
 
     (16) statementIF -> empty .
 
@@ -1909,10 +1356,9 @@ state 88
     RBRACE          reduce using rule 16 (statementIF -> empty .)
 
 
-state 89
+state 76
 
     (20) condition -> expression relation expression relation expression . relation expression
-    (32) expression -> expression . addingOperator term
     (21) relation -> . AND
     (22) relation -> . EQUALV
     (23) relation -> . NOTEQUALV
@@ -1921,29 +1367,22 @@ state 89
     (26) relation -> . LTE
     (27) relation -> . GTE
     (28) relation -> . NOT IN
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
 
-    AND             shift and go to state 39
-    EQUALV          shift and go to state 40
-    NOTEQUALV       shift and go to state 41
-    LT              shift and go to state 42
-    GT              shift and go to state 43
-    LTE             shift and go to state 44
-    GTE             shift and go to state 45
-    NOT             shift and go to state 46
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
+    AND             shift and go to state 34
+    EQUALV          shift and go to state 35
+    NOTEQUALV       shift and go to state 36
+    LT              shift and go to state 37
+    GT              shift and go to state 38
+    LTE             shift and go to state 39
+    GTE             shift and go to state 40
+    NOT             shift and go to state 41
 
-    relation                       shift and go to state 95
-    addingOperator                 shift and go to state 38
+    relation                       shift and go to state 82
 
-state 90
+state 77
 
     (30) factor -> ID DOT ISALPHA LPAREN RPAREN .
 
-    TIMES           reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
-    DIVIDE          reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
     AND             reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
     EQUALV          reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
     NOTEQUALV       reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
@@ -1952,8 +1391,6 @@ state 90
     LTE             reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
     GTE             reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
     NOT             reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
-    PLUS            reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
-    MINUS           reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
     RPAREN          reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
     COMMA           reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
     PRINT           reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
@@ -1967,27 +1404,21 @@ state 90
     LBRACE          reduce using rule 30 (factor -> ID DOT ISALPHA LPAREN RPAREN .)
 
 
-state 91
+state 78
 
     (12) statement -> FOR ID IN ID LBRACE statementList . RBRACE
 
-    RBRACE          shift and go to state 96
+    RBRACE          shift and go to state 83
 
 
-state 92
+state 79
 
     (7) statement -> PRINT LPAREN expression COMMA STRING COMMA expression . RPAREN
-    (32) expression -> expression . addingOperator term
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
 
-    RPAREN          shift and go to state 97
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
+    RPAREN          shift and go to state 84
 
-    addingOperator                 shift and go to state 38
 
-state 93
+state 80
 
     (14) statementIF -> ELSE LBRACE . statementList RBRACE
     (17) statementList -> . statement
@@ -2001,7 +1432,7 @@ state 93
     (11) statement -> . WHILE condition LBRACE statementList RBRACE
     (12) statement -> . FOR ID IN ID LBRACE statementList RBRACE
     (13) statement -> . empty
-    (48) empty -> .
+    (40) empty -> .
 
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for ID resolved as shift
@@ -2013,96 +1444,76 @@ state 93
     IF              shift and go to state 7
     WHILE           shift and go to state 8
     FOR             shift and go to state 9
-    RBRACE          reduce using rule 48 (empty -> .)
+    RBRACE          reduce using rule 40 (empty -> .)
 
-  ! PRINT           [ reduce using rule 48 (empty -> .) ]
-  ! ID              [ reduce using rule 48 (empty -> .) ]
-  ! IF              [ reduce using rule 48 (empty -> .) ]
-  ! WHILE           [ reduce using rule 48 (empty -> .) ]
-  ! FOR             [ reduce using rule 48 (empty -> .) ]
+  ! PRINT           [ reduce using rule 40 (empty -> .) ]
+  ! ID              [ reduce using rule 40 (empty -> .) ]
+  ! IF              [ reduce using rule 40 (empty -> .) ]
+  ! WHILE           [ reduce using rule 40 (empty -> .) ]
+  ! FOR             [ reduce using rule 40 (empty -> .) ]
 
-    statementList                  shift and go to state 98
+    statementList                  shift and go to state 85
     statement                      shift and go to state 4
     empty                          shift and go to state 10
 
-state 94
+state 81
 
     (15) statementIF -> ELSE IF . condition LBRACE statementList RBRACE statementIF
     (19) condition -> . expression relation expression
     (20) condition -> . expression relation expression relation expression relation expression
     (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
+    (31) term -> . factor
     (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    ID              shift and go to state 19
+    STRING          shift and go to state 20
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
-    condition                      shift and go to state 99
+    condition                      shift and go to state 86
     expression                     shift and go to state 16
     term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
+    factor                         shift and go to state 18
 
-state 95
+state 82
 
     (20) condition -> expression relation expression relation expression relation . expression
     (29) expression -> . term
-    (31) expression -> . addingOperator term
-    (32) expression -> . expression addingOperator term
-    (35) term -> . factor
-    (36) term -> . term multiplyingOperator factor
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
+    (31) term -> . factor
     (30) factor -> . ID DOT ISALPHA LPAREN RPAREN
-    (39) factor -> . ID
-    (40) factor -> . STRING
-    (41) factor -> . LBRACKET elements RBRACKET
-    (42) factor -> . LBRACKET RBRACKET
-    (43) factor -> . INPUT LPAREN STRING RPAREN
-    (44) factor -> . NUMBER
-    (45) factor -> . FALSE
-    (46) factor -> . TRUE
-    (47) factor -> . LPAREN expression RPAREN
+    (32) factor -> . ID
+    (33) factor -> . STRING
+    (34) factor -> . LBRACKET elements RBRACKET
+    (35) factor -> . LBRACKET RBRACKET
+    (36) factor -> . INPUT LPAREN STRING RPAREN
+    (37) factor -> . NUMBER
+    (38) factor -> . FALSE
+    (39) factor -> . TRUE
 
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
-    ID              shift and go to state 22
-    STRING          shift and go to state 24
-    LBRACKET        shift and go to state 25
-    INPUT           shift and go to state 26
-    NUMBER          shift and go to state 27
-    FALSE           shift and go to state 28
-    TRUE            shift and go to state 29
-    LPAREN          shift and go to state 23
+    ID              shift and go to state 19
+    STRING          shift and go to state 20
+    LBRACKET        shift and go to state 21
+    INPUT           shift and go to state 22
+    NUMBER          shift and go to state 23
+    FALSE           shift and go to state 24
+    TRUE            shift and go to state 25
 
-    expression                     shift and go to state 100
+    expression                     shift and go to state 87
     term                           shift and go to state 17
-    addingOperator                 shift and go to state 18
-    factor                         shift and go to state 19
+    factor                         shift and go to state 18
 
-state 96
+state 83
 
     (12) statement -> FOR ID IN ID LBRACE statementList RBRACE .
 
@@ -2115,7 +1526,7 @@ state 96
     RBRACE          reduce using rule 12 (statement -> FOR ID IN ID LBRACE statementList RBRACE .)
 
 
-state 97
+state 84
 
     (7) statement -> PRINT LPAREN expression COMMA STRING COMMA expression RPAREN .
 
@@ -2128,34 +1539,28 @@ state 97
     RBRACE          reduce using rule 7 (statement -> PRINT LPAREN expression COMMA STRING COMMA expression RPAREN .)
 
 
-state 98
+state 85
 
     (14) statementIF -> ELSE LBRACE statementList . RBRACE
 
-    RBRACE          shift and go to state 101
+    RBRACE          shift and go to state 88
 
 
-state 99
+state 86
 
     (15) statementIF -> ELSE IF condition . LBRACE statementList RBRACE statementIF
 
-    LBRACE          shift and go to state 102
+    LBRACE          shift and go to state 89
 
 
-state 100
+state 87
 
     (20) condition -> expression relation expression relation expression relation expression .
-    (32) expression -> expression . addingOperator term
-    (33) addingOperator -> . PLUS
-    (34) addingOperator -> . MINUS
 
     LBRACE          reduce using rule 20 (condition -> expression relation expression relation expression relation expression .)
-    PLUS            shift and go to state 20
-    MINUS           shift and go to state 21
 
-    addingOperator                 shift and go to state 38
 
-state 101
+state 88
 
     (14) statementIF -> ELSE LBRACE statementList RBRACE .
 
@@ -2168,7 +1573,7 @@ state 101
     RBRACE          reduce using rule 14 (statementIF -> ELSE LBRACE statementList RBRACE .)
 
 
-state 102
+state 89
 
     (15) statementIF -> ELSE IF condition LBRACE . statementList RBRACE statementIF
     (17) statementList -> . statement
@@ -2182,7 +1587,7 @@ state 102
     (11) statement -> . WHILE condition LBRACE statementList RBRACE
     (12) statement -> . FOR ID IN ID LBRACE statementList RBRACE
     (13) statement -> . empty
-    (48) empty -> .
+    (40) empty -> .
 
   ! shift/reduce conflict for PRINT resolved as shift
   ! shift/reduce conflict for ID resolved as shift
@@ -2194,46 +1599,46 @@ state 102
     IF              shift and go to state 7
     WHILE           shift and go to state 8
     FOR             shift and go to state 9
-    RBRACE          reduce using rule 48 (empty -> .)
+    RBRACE          reduce using rule 40 (empty -> .)
 
-  ! PRINT           [ reduce using rule 48 (empty -> .) ]
-  ! ID              [ reduce using rule 48 (empty -> .) ]
-  ! IF              [ reduce using rule 48 (empty -> .) ]
-  ! WHILE           [ reduce using rule 48 (empty -> .) ]
-  ! FOR             [ reduce using rule 48 (empty -> .) ]
+  ! PRINT           [ reduce using rule 40 (empty -> .) ]
+  ! ID              [ reduce using rule 40 (empty -> .) ]
+  ! IF              [ reduce using rule 40 (empty -> .) ]
+  ! WHILE           [ reduce using rule 40 (empty -> .) ]
+  ! FOR             [ reduce using rule 40 (empty -> .) ]
 
-    statementList                  shift and go to state 103
+    statementList                  shift and go to state 90
     statement                      shift and go to state 4
     empty                          shift and go to state 10
 
-state 103
+state 90
 
     (15) statementIF -> ELSE IF condition LBRACE statementList . RBRACE statementIF
 
-    RBRACE          shift and go to state 104
+    RBRACE          shift and go to state 91
 
 
-state 104
+state 91
 
     (15) statementIF -> ELSE IF condition LBRACE statementList RBRACE . statementIF
     (14) statementIF -> . ELSE LBRACE statementList RBRACE
     (15) statementIF -> . ELSE IF condition LBRACE statementList RBRACE statementIF
     (16) statementIF -> . empty
-    (48) empty -> .
+    (40) empty -> .
 
-    ELSE            shift and go to state 87
-    PRINT           reduce using rule 48 (empty -> .)
-    ID              reduce using rule 48 (empty -> .)
-    IF              reduce using rule 48 (empty -> .)
-    WHILE           reduce using rule 48 (empty -> .)
-    FOR             reduce using rule 48 (empty -> .)
-    $end            reduce using rule 48 (empty -> .)
-    RBRACE          reduce using rule 48 (empty -> .)
+    ELSE            shift and go to state 74
+    PRINT           reduce using rule 40 (empty -> .)
+    ID              reduce using rule 40 (empty -> .)
+    IF              reduce using rule 40 (empty -> .)
+    WHILE           reduce using rule 40 (empty -> .)
+    FOR             reduce using rule 40 (empty -> .)
+    $end            reduce using rule 40 (empty -> .)
+    RBRACE          reduce using rule 40 (empty -> .)
 
-    statementIF                    shift and go to state 105
-    empty                          shift and go to state 88
+    statementIF                    shift and go to state 92
+    empty                          shift and go to state 75
 
-state 105
+state 92
 
     (15) statementIF -> ELSE IF condition LBRACE statementList RBRACE statementIF .
 
@@ -2258,31 +1663,31 @@ WARNING: shift/reduce conflict for ID in state 4 resolved as shift
 WARNING: shift/reduce conflict for IF in state 4 resolved as shift
 WARNING: shift/reduce conflict for WHILE in state 4 resolved as shift
 WARNING: shift/reduce conflict for FOR in state 4 resolved as shift
-WARNING: shift/reduce conflict for RPAREN in state 32 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 36 resolved as shift
-WARNING: shift/reduce conflict for ID in state 36 resolved as shift
-WARNING: shift/reduce conflict for IF in state 36 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 36 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 36 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 57 resolved as shift
-WARNING: shift/reduce conflict for ID in state 57 resolved as shift
-WARNING: shift/reduce conflict for IF in state 57 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 57 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 57 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 83 resolved as shift
-WARNING: shift/reduce conflict for ID in state 83 resolved as shift
-WARNING: shift/reduce conflict for IF in state 83 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 83 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 83 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 93 resolved as shift
-WARNING: shift/reduce conflict for ID in state 93 resolved as shift
-WARNING: shift/reduce conflict for IF in state 93 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 93 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 93 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 102 resolved as shift
-WARNING: shift/reduce conflict for ID in state 102 resolved as shift
-WARNING: shift/reduce conflict for IF in state 102 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 102 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 102 resolved as shift
+WARNING: shift/reduce conflict for RPAREN in state 28 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 32 resolved as shift
+WARNING: shift/reduce conflict for ID in state 32 resolved as shift
+WARNING: shift/reduce conflict for IF in state 32 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 32 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 32 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 47 resolved as shift
+WARNING: shift/reduce conflict for ID in state 47 resolved as shift
+WARNING: shift/reduce conflict for IF in state 47 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 47 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 47 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 70 resolved as shift
+WARNING: shift/reduce conflict for ID in state 70 resolved as shift
+WARNING: shift/reduce conflict for IF in state 70 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 70 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 70 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 80 resolved as shift
+WARNING: shift/reduce conflict for ID in state 80 resolved as shift
+WARNING: shift/reduce conflict for IF in state 80 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 80 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 80 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 89 resolved as shift
+WARNING: shift/reduce conflict for ID in state 89 resolved as shift
+WARNING: shift/reduce conflict for IF in state 89 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 89 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 89 resolved as shift
 WARNING: reduce/reduce conflict in state 4 resolved using rule (statementList -> statement)
 WARNING: rejected rule (empty -> <empty>) in state 4
